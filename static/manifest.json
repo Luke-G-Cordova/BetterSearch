@@ -9,10 +9,10 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["contentScript.js"]
+      "js": ["./webcomponents_bundle.js", "contentScript.js"]
     }
   ],
-  "permissions": ["storage", "scripting"],
+  "permissions": ["storage", "scripting", "declarativeContent", "activeTab"],
   "options_ui": {
     "page": "options.html",
     "open_in_tab": true
@@ -32,5 +32,13 @@
     "32": "/icons/32x.png",
     "48": "/icons/48x.png",
     "128": "/icons/128x.png"
+  },
+  "commands": {
+    "toggle_popup": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F"
+      },
+      "description": "Toggles the dom based popup"
+    }
   }
 }

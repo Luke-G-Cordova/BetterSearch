@@ -1,18 +1,63 @@
-import { initializeStorageWithDefaults } from './storage';
+// import { initializeStorageWithDefaults } from './storage';
 
-chrome.runtime.onInstalled.addListener(async () => {
-  // Here goes everything you want to execute after extension initialization
+/**
+ * sends data to different parts of the extension
+ * @param data object to be sent
+ */
+const sendData = (data: communicationInfo) => {
+  chrome.tabs.query(
+    {
+      active: true,
+      currentWindow: true,
+    },
+    (tabs) => {
+      if (tabs[0].id != null) {
+        chrome.tabs.sendMessage(tabs[0].id, data);
+      } else {
+        console.error('tabId is undefined');
+      }
+    },
+  );
+};
 
-  await initializeStorageWithDefaults({});
-
-  console.log('Extension successfully installed!');
-});
-
-// Log storage changes, might be safely removed
-chrome.storage.onChanged.addListener((changes) => {
-  for (const [key, value] of Object.entries(changes)) {
-    console.log(
-      `"${key}" changed from "${value.oldValue}" to "${value.newValue}"`,
-    );
+/**
+ * these send the open_popup event to the content scripts
+ */
+chrome.commands.onCommand.addListener((command) => {
+  if (
+    command === 'toggle_popup' ||
+    command === 'close_popup' ||
+    command === 'open_popup'
+  ) {
+    const sendObj: communicationInfo = {
+      from: 'background',
+      subject: command,
+    };
+    sendData(sendObj);
   }
 });
+
+chrome.action.onClicked.addListener(() => {
+  const sendObj: communicationInfo = {
+    from: 'background',
+    subject: 'open_popup',
+  };
+  sendData(sendObj);
+});
+
+// chrome.runtime.onInstalled.addListener(async () => {
+//   // Here goes everything you want to execute after extension initialization
+
+//   await initializeStorageWithDefaults({});
+
+//   console.log('Extension successfully installed!');
+// });
+
+// Log storage changes, might be safely removed
+// chrome.storage.onChanged.addListener((changes) => {
+//   for (const [key, value] of Object.entries(changes)) {
+//     console.log(
+//       `"${key}" changed from "${value.oldValue}" to "${value.newValue}"`,
+//     );
+//   }
+// });
