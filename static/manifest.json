@@ -1,6 +1,6 @@
 {
   "name": "BetterSearch",
-  "description": "Enables more functionality for html page searching",
+  "description": "Functionality for searching through html",
   "version": "0.1.0",
   "manifest_version": 3,
   "background": {
