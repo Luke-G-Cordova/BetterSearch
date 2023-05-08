@@ -1,7 +1,7 @@
 {
   "name": "better-search",
   "version": "0.1.0",
-  "description": "Enables more functionality for html page searching",
+  "description": "Functionality for searching through html",
   "scripts": {
     "start": "webpack --watch --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
