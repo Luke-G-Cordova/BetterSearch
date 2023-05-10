@@ -11,6 +11,7 @@ interface highlightMeOptions {
   color: string;
   mods: string;
   limit: number;
+  percentMatch: number;
 }
 
 interface nextMatchOptions {

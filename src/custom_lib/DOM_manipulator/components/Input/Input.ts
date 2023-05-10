@@ -87,6 +87,10 @@ export class Input extends HTMLElement {
    */
   public levenshtein: HTMLInputElement;
 
+  public levenshteinSlider: HTMLInputElement;
+
+  public percentMatch = 0.75;
+
   public exactMatch: HTMLInputElement;
 
   /**
@@ -145,6 +149,11 @@ export class Input extends HTMLElement {
     this.levenshtein = BetterSearchInput.querySelector(
       '#BS-levenshtein',
     ) as HTMLInputElement;
+
+    this.levenshteinSlider = BetterSearchInput.querySelector(
+      '#BS-levenshtein-slider',
+    ) as HTMLInputElement;
+    this.levenshteinSlider.value = this.percentMatch + '';
 
     this.shouldScroll = BetterSearchInput.querySelector(
       '#BS-should-scroll',
@@ -296,6 +305,16 @@ export class Input extends HTMLElement {
       this.searchInput.focus();
     });
 
+    this.levenshteinSlider.addEventListener('change', (e) => {
+      e.preventDefault();
+      console.log(this.levenshteinSlider.value);
+      this.percentMatch = Number(this.levenshteinSlider.value);
+      if (this.levenshtein.checked) {
+        this.handleHighlighting();
+        this.searchInput.focus();
+      }
+    });
+
     this.next.addEventListener('click', (e: any) => {
       e.preventDefault();
       this.nextOrPrev = this.next;
@@ -389,6 +408,7 @@ export class Input extends HTMLElement {
         color: this.colorInput.value,
         mods: this.preserveCase,
         limit: this.maxLimit,
+        percentMatch: this.percentMatch,
       })
     ) {
       this.next.click();
@@ -414,6 +434,7 @@ export class Input extends HTMLElement {
       color: '#FFFF00',
       mods: '',
       limit: 1000,
+      percentMatch: 0.75,
     },
   ) {
     clearHighlight(this.key);
@@ -423,6 +444,7 @@ export class Input extends HTMLElement {
           color: '#FFFF00',
           mods: '',
           limit: 1000,
+          percentMatch: 0.75,
         },
         options,
       );
@@ -470,6 +492,7 @@ export class Input extends HTMLElement {
           );
         }
       } else if (searchType === 'lev') {
+        console.log(options.percentMatch);
         Globals.MY_HIGHLIGHTS[GI] = highlightLevenshtein(
           searchTerm,
           (match, sameMatchID) =>
@@ -478,7 +501,7 @@ export class Input extends HTMLElement {
             excludes: ['BS-popup-card'],
             limit: options.limit,
             root: document.body,
-            percentMatch: 0.75,
+            percentMatch: options.percentMatch,
           },
         );
       }

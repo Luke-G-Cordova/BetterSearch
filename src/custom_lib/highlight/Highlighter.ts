@@ -277,7 +277,7 @@ export const highlightLevenshtein = (
     const match = findClosestMatch(searchTerm, masterStr);
 
     // if the match is within percentMatch of the test string
-    if (match.percent >= 0.75) {
+    if (match.percent >= options.percentMatch) {
       amountOfSelectedMatches++;
 
       // create nodeParts array and find the index j signifying the node that the match starts in

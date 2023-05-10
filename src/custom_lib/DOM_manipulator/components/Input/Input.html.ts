@@ -21,6 +21,9 @@ export const getBetterSearchInput = () => {
           <label for="BS-levenshtein">Loose search</label>
         </div>
         <div class="BSButton BSModifierButton">
+          <input type="range" min="0" max="1" step=".01" id="BS-levenshtein-slider" />
+        </div>
+        <div class="BSButton BSModifierButton">
           <input class="BSModifierInput" id="BS-case-sensitive" type="checkbox" />
           <label for="BS-case-sensitive">Case sensitive</label>
         </div>
