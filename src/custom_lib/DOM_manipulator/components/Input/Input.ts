@@ -89,6 +89,8 @@ export class Input extends HTMLElement {
 
   public levenshteinSlider: HTMLInputElement;
 
+  public levenshteinSliderValue: HTMLSpanElement;
+
   public percentMatch = 0.75;
 
   public exactMatch: HTMLInputElement;
@@ -154,6 +156,11 @@ export class Input extends HTMLElement {
       '#BS-levenshtein-slider',
     ) as HTMLInputElement;
     this.levenshteinSlider.value = this.percentMatch + '';
+
+    this.levenshteinSliderValue = BetterSearchInput.querySelector(
+      '#BS-levenshtein-slider-value',
+    ) as HTMLSpanElement;
+    this.levenshteinSliderValue.innerText = this.percentMatch + '';
 
     this.shouldScroll = BetterSearchInput.querySelector(
       '#BS-should-scroll',
@@ -305,10 +312,14 @@ export class Input extends HTMLElement {
       this.searchInput.focus();
     });
 
+    this.levenshteinSlider.addEventListener('input', (e) => {
+      e.preventDefault();
+      this.percentMatch = Number(this.levenshteinSlider.value);
+      this.levenshteinSliderValue.innerText = this.percentMatch + '';
+    });
+
     this.levenshteinSlider.addEventListener('change', (e) => {
       e.preventDefault();
-      console.log(this.levenshteinSlider.value);
-      this.percentMatch = Number(this.levenshteinSlider.value);
       if (this.levenshtein.checked) {
         this.handleHighlighting();
         this.searchInput.focus();
