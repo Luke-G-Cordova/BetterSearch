@@ -1,11 +1,12 @@
 import { Globals } from '../../../Globals';
-import { BetterSearchPopupCard } from './PopupCard.html';
+import { getBetterSearchPopupCard } from './PopupCard.html';
 import { styles } from '../Styles.css';
 
 export class PopupCard extends HTMLElement {
   constructor() {
     super();
     const shadowRoot = this.attachShadow({ mode: 'open' });
+    const BetterSearchPopupCard = getBetterSearchPopupCard();
 
     Globals.formWrapper =
       BetterSearchPopupCard.querySelector('#BS-form-wrapper');
