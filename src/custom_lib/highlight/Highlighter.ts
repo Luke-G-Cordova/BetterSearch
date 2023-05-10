@@ -649,24 +649,27 @@ const findClosestMatch = (str1: string, str2: string): ClosestMatch => {
 };
 
 const lev_distance = (str1: string, str2: string) => {
-  const mat = [];
-  mat.length = str1.length + 1;
-  for (let i = 0; i <= str1.length; i++) {
-    mat[i] = [i];
-  }
-  for (let i = 1; i <= str2.length; i++) {
-    mat[0][i] = i;
-  }
-  for (let i = 1; i < mat.length; i++) {
-    for (let j = 1; j < mat[0].length; j++) {
-      if (str1[i - 1] === str2[j - 1]) {
-        mat[i][j] = mat[i - 1][j - 1];
-      } else {
-        mat[i][j] =
-          Math.min(mat[i - 1][j], mat[i - 1][j - 1], mat[i][j - 1]) + 1;
-      }
-    }
-  }
+  const mat = lev_distance_matrix(str1, str2);
+  // mat.length = str1.length + 1;
+  // for (let i = 0; i <= str1.length; i++) {
+  //   mat[i] = [i];
+  // }
+  // for (let i = 1; i <= str2.length; i++) {
+  //   mat[0][i] = i;
+  // }
+  // for (let i = 1; i < mat.length; i++) {
+  //   for (let j = 1; j < mat[0].length; j++) {
+  //     if (
+  //       str1[i - 1] === str2[j - 1] ||
+  //       sameLetterDifCase(str1[i - 1], str2[j - 1])
+  //     ) {
+  //       mat[i][j] = mat[i - 1][j - 1];
+  //     } else {
+  //       mat[i][j] =
+  //         Math.min(mat[i - 1][j], mat[i - 1][j - 1], mat[i][j - 1]) + 1;
+  //     }
+  //   }
+  // }
   return mat[mat.length - 1][mat[mat.length - 1].length - 1];
 };
 
@@ -681,7 +684,10 @@ const lev_distance_matrix = (str1: string, str2: string) => {
   }
   for (let i = 1; i < mat.length; i++) {
     for (let j = 1; j < mat[0].length; j++) {
-      if (str1[i - 1] === str2[j - 1]) {
+      if (
+        str1[i - 1] === str2[j - 1] ||
+        sameLetterDifCase(str1[i - 1], str2[j - 1])
+      ) {
         mat[i][j] = mat[i - 1][j - 1];
       } else {
         mat[i][j] =
@@ -690,6 +696,16 @@ const lev_distance_matrix = (str1: string, str2: string) => {
     }
   }
   return mat;
+};
+
+const sameLetterDifCase = (letter1: string, letter2: string) => {
+  const char1 = letter1.charCodeAt(0);
+  const char2 = letter2.charCodeAt(0);
+  if (char1 === char2) return true;
+  if (char1 >= 65 && char1 <= 122 && char2 >= 65 && char2 <= 122) {
+    return Math.abs(char1 - char2) === 32;
+  }
+  return false;
 };
 
 const escapeRegExp = (text: string) => {
