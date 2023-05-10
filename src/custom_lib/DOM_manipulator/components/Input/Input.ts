@@ -1,5 +1,5 @@
 import { styles } from '../Styles.css';
-import { bsrInput } from './BSRInput.html';
+import { getBetterSearchInput } from './Input.html';
 import {
   clearHighlight,
   highlightExactMatch,
@@ -8,7 +8,7 @@ import {
 } from '../../../highlight/Highlighter';
 import { Globals } from '../../../Globals';
 
-export class BSRInput extends HTMLElement {
+export class Input extends HTMLElement {
   public preserveCase = 'i';
 
   public searchType: 'lev' | 'exact' | 'regexp' = 'exact';
@@ -113,69 +113,79 @@ export class BSRInput extends HTMLElement {
     super();
     const shadowRoot = this.attachShadow({ mode: 'open' });
 
+    const BetterSearchInput = getBetterSearchInput();
+
     const style = document.createElement('style');
     style.textContent = styles;
     shadowRoot.appendChild(style);
-    shadowRoot.appendChild(bsrInput);
+    shadowRoot.appendChild(BetterSearchInput);
     Globals.INPUT_AMT++;
 
     // create the key to identify this element
     this.key = `regex-key-${Math.random().toString(36).substring(2, 5)}`;
 
-    this.inputWrapper = bsrInput;
+    this.inputWrapper = BetterSearchInput;
 
-    this.searchInput = bsrInput.querySelector(
-      'input.BSRMainInputField',
+    this.searchInput = BetterSearchInput.querySelector(
+      'input.BSMainInputField',
     ) as HTMLInputElement;
 
-    this.caseSensitive = bsrInput.querySelector(
-      '#bsr-case-sensitive',
+    this.caseSensitive = BetterSearchInput.querySelector(
+      '#BS-case-sensitive',
     ) as HTMLInputElement;
 
-    this.exactMatch = bsrInput.querySelector(
-      '#bsr-exact-match',
+    this.exactMatch = BetterSearchInput.querySelector(
+      '#BS-exact-match',
     ) as HTMLInputElement;
 
-    this.isRegex = bsrInput.querySelector('#bsr-is-regex') as HTMLInputElement;
-
-    this.levenshtein = bsrInput.querySelector(
-      '#bsr-levenshtein',
+    this.isRegex = BetterSearchInput.querySelector(
+      '#BS-is-regex',
     ) as HTMLInputElement;
 
-    this.shouldScroll = bsrInput.querySelector(
-      '#bsr-should-scroll',
+    this.levenshtein = BetterSearchInput.querySelector(
+      '#BS-levenshtein',
     ) as HTMLInputElement;
 
-    this.maxMatchLimit = bsrInput.querySelector(
-      '#bsr-max-matches',
+    this.shouldScroll = BetterSearchInput.querySelector(
+      '#BS-should-scroll',
     ) as HTMLInputElement;
 
-    this.colorInput = bsrInput.querySelector(
-      '#bsr-color-input',
+    this.maxMatchLimit = BetterSearchInput.querySelector(
+      '#BS-max-matches',
     ) as HTMLInputElement;
 
-    this.colorFacts = bsrInput.querySelector('.BSRColorFacts') as HTMLElement;
+    this.colorInput = BetterSearchInput.querySelector(
+      '#BS-color-input',
+    ) as HTMLInputElement;
 
-    this.next = bsrInput.querySelector('.BSRNextButton') as HTMLElement;
-
-    this.prev = bsrInput.querySelector('.BSRPrevButton') as HTMLElement;
-
-    this.countNum = bsrInput.querySelector('.BSRMatchNumerator') as HTMLElement;
-
-    this.countDen = bsrInput.querySelector(
-      '.BSRMatchDenominator',
+    this.colorFacts = BetterSearchInput.querySelector(
+      '.BSColorFacts',
     ) as HTMLElement;
 
-    this.minus = bsrInput.querySelector('.BSRDeleteButton') as HTMLElement;
+    this.next = BetterSearchInput.querySelector('.BSNextButton') as HTMLElement;
 
-    this.copy = bsrInput.querySelector('.BSRCopyButton') as HTMLElement;
+    this.prev = BetterSearchInput.querySelector('.BSPrevButton') as HTMLElement;
 
-    this.colorCopyButton = bsrInput.querySelector(
-      '.BSRColorCopyButton',
+    this.countNum = BetterSearchInput.querySelector(
+      '.BSMatchNumerator',
     ) as HTMLElement;
 
-    this.colorCopyTooltip = bsrInput.querySelector(
-      '.BSRColorCopyToolTip',
+    this.countDen = BetterSearchInput.querySelector(
+      '.BSMatchDenominator',
+    ) as HTMLElement;
+
+    this.minus = BetterSearchInput.querySelector(
+      '.BSDeleteButton',
+    ) as HTMLElement;
+
+    this.copy = BetterSearchInput.querySelector('.BSCopyButton') as HTMLElement;
+
+    this.colorCopyButton = BetterSearchInput.querySelector(
+      '.BSColorCopyButton',
+    ) as HTMLElement;
+
+    this.colorCopyTooltip = BetterSearchInput.querySelector(
+      '.BSColorCopyToolTip',
     ) as HTMLElement;
 
     // auto focus the input
@@ -344,7 +354,9 @@ export class BSRInput extends HTMLElement {
       Globals.popupDragger.deleteNoDragElems(this.inputWrapper);
       if (this.parentElement == null) return;
       if (this.parentElement.childNodes.length === 1) {
-        this.parentElement.appendChild(document.createElement('bsr-input'));
+        this.parentElement.appendChild(
+          document.createElement('better-search-input'),
+        );
       }
       this.parentElement.removeChild(this);
       Globals.INPUT_AMT--;
@@ -431,7 +443,7 @@ export class BSRInput extends HTMLElement {
           (match, sameMatchID) =>
             this.createTag(match, sameMatchID, options.color),
           {
-            excludes: ['bsr-popup-card'],
+            excludes: ['BS-popup-card'],
             limit: options.limit,
             root: document.body,
             mods: this.preserveCase,
@@ -451,7 +463,7 @@ export class BSRInput extends HTMLElement {
               return this.createTag(match, sameMatchID, options.color);
             },
             {
-              excludes: ['bsr-popup-card'],
+              excludes: ['BS-popup-card'],
               limit: options.limit,
               root: document.body,
             },
@@ -463,7 +475,7 @@ export class BSRInput extends HTMLElement {
           (match, sameMatchID) =>
             this.createTag(match, sameMatchID, options.color),
           {
-            excludes: ['bsr-popup-card'],
+            excludes: ['BS-popup-card'],
             limit: options.limit,
             root: document.body,
             percentMatch: 0.75,
@@ -484,7 +496,7 @@ export class BSRInput extends HTMLElement {
    */
   createTag(match: string, sameMatchID: number, color: string) {
     const highlightMeElem = document.createElement('highlight-me');
-    highlightMeElem.className = `chrome-bsr-highlight-me ${this.key}`;
+    highlightMeElem.className = `chrome-BS-highlight-me ${this.key}`;
     if (Globals.CUR_INDEX === 0) {
       highlightMeElem.className += ' current';
     }

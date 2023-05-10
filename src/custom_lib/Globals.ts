@@ -1,5 +1,5 @@
-import { BSRPopupCard } from './DOM_manipulator/components/BSRPopupCard/BSRPopupCard';
-import { BSRInput } from './DOM_manipulator/components/BSRInput/BSRInput';
+import { PopupCard } from './DOM_manipulator/components/PopupCard/PopupCard';
+import { Input } from './DOM_manipulator/components/Input/Input';
 
 /* eslint-disable prefer-const */
 export const Globals: GlobalObject = {
@@ -21,5 +21,5 @@ export const Globals: GlobalObject = {
   formWrapper: null,
 };
 
-customElements.define('bsr-popup-card', BSRPopupCard);
-customElements.define('bsr-input', BSRInput);
+customElements.define('better-search-popup-card', PopupCard);
+customElements.define('better-search-input', Input);

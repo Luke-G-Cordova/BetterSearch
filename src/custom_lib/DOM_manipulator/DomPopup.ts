@@ -12,17 +12,17 @@ export const togglePopup = () => {
 };
 
 export const openPopup = () => {
-  const alreadyLinkedFont = document.querySelector('#bsr-alamari-font-link');
+  const alreadyLinkedFont = document.querySelector('#BS-alamari-font-link');
   const newFontLink = document.createElement('link');
   newFontLink.rel = 'stylesheet';
   newFontLink.href = 'https://fonts.googleapis.com/css?family=Almarai';
-  newFontLink.id = 'bsr-alamari-font-link';
+  newFontLink.id = 'BS-alamari-font-link';
   if (alreadyLinkedFont) {
     alreadyLinkedFont.remove();
   }
   document.head.appendChild(newFontLink);
 
-  Globals.popup = document.createElement('bsr-popup-card');
+  Globals.popup = document.createElement('better-search-popup-card');
   Object.assign(Globals.popup.style, {
     top: `${20 + window.scrollY}px`,
     left: `${20 + window.scrollX}px`,
@@ -32,9 +32,9 @@ export const openPopup = () => {
     document.body.firstChild,
   );
 
-  const formWrapper = queryShadowSelector(Globals.popup, '#bsr-form-wrapper');
-  const exitBtn = queryShadowSelector(Globals.popup, '#bsr-exit-button');
-  const inputBtn = queryShadowSelector(Globals.popup, '#bsr-input-button');
+  const formWrapper = queryShadowSelector(Globals.popup, '#BS-form-wrapper');
+  const exitBtn = queryShadowSelector(Globals.popup, '#BS-exit-button');
+  const inputBtn = queryShadowSelector(Globals.popup, '#BS-input-button');
 
   if (
     formWrapper instanceof HTMLElement &&
@@ -50,12 +50,12 @@ export const openPopup = () => {
     Globals.popupDragger.drag();
 
     // add original input
-    formWrapper.appendChild(document.createElement('bsr-input'));
+    formWrapper.appendChild(document.createElement('better-search-input'));
 
     // add input if clicked
     inputBtn.addEventListener('click', () => {
       if (formWrapper != null && Globals.INPUT_AMT < 6) {
-        formWrapper.appendChild(document.createElement('bsr-input'));
+        formWrapper.appendChild(document.createElement('better-search-input'));
       }
     });
 

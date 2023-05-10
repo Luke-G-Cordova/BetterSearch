@@ -11,7 +11,7 @@ export const styles = /*css*/ `
     }
 
     /* custom break */
-    bsr-break {
+    BS-break {
       display: block;
       height: 0.5px;
       margin: 0 5% 2% 5%;
@@ -19,68 +19,68 @@ export const styles = /*css*/ `
     }
 
     /* scroll bars */
-    .BSRScrollBar {
+    .BSScrollBar {
       max-height: inherit;
       overflow-y: scroll;
     }
-    .BSRScrollBar::-webkit-scrollbar {
+    .BSScrollBar::-webkit-scrollbar {
       width: 4px;
     }
-    .BSRScrollBar::-webkit-scrollbar-track {
+    .BSScrollBar::-webkit-scrollbar-track {
       background-color: #3c3f41;
     }
-    .BSRScrollBar::-webkit-scrollbar-thumb {
+    .BSScrollBar::-webkit-scrollbar-thumb {
       background-color: #111113;
       border-radius: 4px;
     }
 
     /* control wrapper */
-    #bsr-control-wrapper {
+    #BS-control-wrapper {
       display: inline-block;
       width: 100%;
     }
-    #bsr-input-button {
+    #BS-input-button {
       float: left;
     }
-    #bsr-exit-button {
+    #BS-exit-button {
       float: right;
     }
-    .BSRControlButton {
+    .BSControlButton {
       padding: 5px;
       margin: 3px;
       display: inline-block;
     }
 
     /* buttons */
-    .BSRButton {
+    .BSButton {
       color: #6b7074;
       transition: color 500ms ease-out;
     }
-    .BSRButton:hover {
+    .BSButton:hover {
       color: #acaeb1;
       cursor: pointer;
     }
 
     /* form wrapper, inputs are children of this wrapper */
-    #bsr-form-wrapper {
+    #BS-form-wrapper {
       padding: 5%;
     }
 
     /* top half of an input */
-    .BSRInputTopHalf {
+    .BSInputTopHalf {
       display: flex;
     }
-    .BSRInputTopHalf > :first-child {
+    .BSInputTopHalf > :first-child {
       border-top-left-radius: 3px;
       border-bottom-left-radius: 3px;
     }
-    .BSRInputTopHalf > :nth-child(2) {
+    .BSInputTopHalf > :nth-child(2) {
       border-top-right-radius: 3px;
       border-bottom-right-radius: 3px;
     }
 
     /* main input, this is where a search term is entered */
-    input.BSRMainInputField {
+    input.BSMainInputField {
       background-color: #111113;
       color: #e8eaed;
       border: 1px solid #6b7074;
@@ -90,12 +90,12 @@ export const styles = /*css*/ `
       padding-left: 5px;
       box-sizing: border-box;
     }
-    input.BSRMainInputField::placeholder {
+    input.BSMainInputField::placeholder {
       color: #55595d;
     }
 
     /* search modifiers */
-    .BSRModifierWrapper {
+    .BSModifierWrapper {
       border-top: 1px solid #6b7074;
       border-right: 1px solid #6b7074;
       border-bottom: 1px solid #6b7074;
@@ -106,20 +106,20 @@ export const styles = /*css*/ `
     }
 
     /* the element that when hovered shows the modifier dropdown */
-    .BSRModifierCoverButton {
+    .BSModifierCoverButton {
       display: flex;
       justify-content: center;
       align-items: center;
       min-width: 25px;
       height: 25px;
     }
-    .BSRModifierWrapper:hover .BSRModifierDropdown {
+    .BSModifierWrapper:hover .BSModifierDropdown {
       visibility: visible;
       max-height: 200px;
     }
 
     /* modifier dropdown */
-    .BSRModifierDropdown {
+    .BSModifierDropdown {
       visibility: hidden;
       position: absolute;
       max-height: 0px;
@@ -135,12 +135,12 @@ export const styles = /*css*/ `
     }
 
     /* modifier buttons and inputs */
-    .BSRModifierButton {
+    .BSModifierButton {
       background-color: #202124;
       padding: 5px;
       position: relative;
     }
-    .BSRModifierButton label:before {
+    .BSModifierButton label:before {
       position: absolute;
       content: '';
       top: 0;
@@ -148,20 +148,20 @@ export const styles = /*css*/ `
       right: 0;
       left: 0;
     }
-    .BSRModifierButton label:hover {
+    .BSModifierButton label:hover {
       cursor: pointer;
     }
-    .BSRModifierInput {
+    .BSModifierInput {
       float: right;
     }
-    .BSRModifierButton:hover {
+    .BSModifierButton:hover {
       background-color: #111113;
       padding: 5px;
     }
-    .BSRMaxMatchLimitWrapper:hover {
+    .BSMaxMatchLimitWrapper:hover {
       cursor: default;
     }
-    .BSRMaxMatchLimit {
+    .BSMaxMatchLimit {
       width: 50px;
       height: 25px;
       background-color: #202124;
@@ -170,29 +170,29 @@ export const styles = /*css*/ `
       border-radius: 3px;
       box-sizing: border-box;
     }
-    .BSRColorPicker::-webkit-color-swatch-wrapper {
+    .BSColorPicker::-webkit-color-swatch-wrapper {
       padding: 0;
     }
-    .BSRColorPicker::-webkit-color-swatch {
+    .BSColorPicker::-webkit-color-swatch {
       border: none;
     }
-    .BSRColorPicker {
+    .BSColorPicker {
       -webkit-appearance: none;
       border: none;
     }
-    .BSRColorPickerWrapper:hover {
+    .BSColorPickerWrapper:hover {
       cursor: default;
     }
-    .BSRColorPicker:hover {
+    .BSColorPicker:hover {
       cursor: pointer;
     }
 
     /* bottom half of an input */
-    .BSRInputBottomHalf {
+    .BSInputBottomHalf {
       display: flex;
       padding-top: 5px;
     }
-    .BSRActionButton {
+    .BSActionButton {
       width: 25px;
       height: 25px;
       display: flex;
@@ -201,7 +201,7 @@ export const styles = /*css*/ `
       align-items: center;
     }
 
-    .BSRToolTip {
+    .BSToolTip {
       background-color: #acaeb1;
       color: #202124 !important;
       position: absolute;
@@ -212,7 +212,7 @@ export const styles = /*css*/ `
       opacity: 0;
       transition: opacity .2s;
     }
-    .BSRCopyButton {
+    .BSCopyButton {
       position: relative;
     }
 `;
