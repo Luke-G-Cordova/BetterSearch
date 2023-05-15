@@ -205,7 +205,7 @@ export class Input extends HTMLElement {
     ) as HTMLElement;
 
     // auto focus the input
-    setTimeout(() => this.searchInput.focus(), 1);
+    setTimeout(() => this.searchInput.focus(), 100);
     // event listeners
 
     // listen for the input event
