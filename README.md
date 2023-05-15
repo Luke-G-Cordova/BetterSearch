@@ -3,6 +3,7 @@
   <img src="https://raw.githubusercontent.com/Luke-G-Cordova/BetterSearch/master/static/icons/logo_color.svg" alt="BetterSearch Logo">
 </p>
 <h1 align="center">BetterSearch</h1>
+<p align="center">Enables better web page searching functionality for browsers.</p>
 
 # How to use
 
