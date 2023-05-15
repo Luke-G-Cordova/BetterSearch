@@ -11,7 +11,8 @@ module.exports = {
     contentScript: './src/contentScript.ts',
     popup: './src/popup.ts',
     options: './src/options.ts',
-    webcomponents_bundle: './src/webcomponents-bundle.js',
+    webcomponents_bundle:
+      './node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js',
   },
   module: {
     rules: [
