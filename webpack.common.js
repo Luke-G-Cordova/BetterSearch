@@ -9,8 +9,6 @@ module.exports = {
   entry: {
     serviceWorker: './src/serviceWorker.ts',
     contentScript: './src/contentScript.ts',
-    popup: './src/popup.ts',
-    options: './src/options.ts',
     webcomponents_bundle:
       './node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js',
   },

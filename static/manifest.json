@@ -3,6 +3,7 @@
   "description": "Functionality for searching through html",
   "version": "0.0.1",
   "manifest_version": 3,
+  "permissions": ["activeTab"],
   "background": {
     "service_worker": "serviceWorker.js"
   },
@@ -13,14 +14,8 @@
       "css": ["./contentScript.css"]
     }
   ],
-  "permissions": ["activeTab"],
-  "options_ui": {
-    "page": "options.html",
-    "open_in_tab": true
-  },
   "action": {
     "default_title": "BetterSearch",
-    "default_popup": "popup.html",
     "default_icon": {
       "16": "/icons/16x.png",
       "32": "/icons/32x.png",
