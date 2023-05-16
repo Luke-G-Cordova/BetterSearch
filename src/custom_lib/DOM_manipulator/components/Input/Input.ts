@@ -503,7 +503,6 @@ export class Input extends HTMLElement {
           );
         }
       } else if (searchType === 'lev') {
-        console.log(options.percentMatch);
         Globals.MY_HIGHLIGHTS[GI] = highlightLevenshtein(
           searchTerm,
           (match, sameMatchID) =>
