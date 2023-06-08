@@ -6,7 +6,6 @@ better-search-popup-card {
   color: #6b7074 !important;
   border-radius: 5px;
   z-index: 99999;
-  font-family: 'Almarai';
   font-size: 15px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
 }

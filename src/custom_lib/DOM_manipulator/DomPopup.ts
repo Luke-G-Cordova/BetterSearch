@@ -12,16 +12,6 @@ export const togglePopup = () => {
 };
 
 export const openPopup = () => {
-  const alreadyLinkedFont = document.querySelector('#BS-alamari-font-link');
-  const newFontLink = document.createElement('link');
-  newFontLink.rel = 'stylesheet';
-  newFontLink.href = 'https://fonts.googleapis.com/css?family=Almarai';
-  newFontLink.id = 'BS-alamari-font-link';
-  if (alreadyLinkedFont) {
-    alreadyLinkedFont.remove();
-  }
-  document.head.appendChild(newFontLink);
-
   Globals.popup = document.createElement('better-search-popup-card');
   Object.assign(Globals.popup.style, {
     top: `${20 + window.scrollY}px`,

@@ -38,7 +38,7 @@ chrome.commands.onCommand.addListener((command) => {
 chrome.action.onClicked.addListener(() => {
   const sendObj: communicationInfo = {
     from: 'background',
-    subject: 'open_popup',
+    subject: 'toggle_popup',
   };
   sendData(sendObj);
 });

@@ -3,7 +3,7 @@
   "description": "Functionality for searching through html",
   "version": "0.0.1",
   "manifest_version": 3,
-  "permissions": ["activeTab"],
+  "permissions": [],
   "background": {
     "service_worker": "serviceWorker.js"
   },
