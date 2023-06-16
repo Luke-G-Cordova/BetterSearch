@@ -1,12 +1,16 @@
 <br/>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Luke-G-Cordova/BetterSearch/master/static/icons/logo_color.svg" alt="BetterSearch Logo">
+  <a href="https://chrome.google.com/webstore/detail/bettersearch/lklkkcajhjdephgieocndlemnkcgchln">
+    <img src="https://raw.githubusercontent.com/Luke-G-Cordova/BetterSearch/master/static/icons/logo_color.svg" alt="BetterSearch Logo">
+  </a>
 </p>
 <h1 align="center">BetterSearch</h1>
 
 # How to use
 
-Currently BetterSearch is not deployed. To use it, you must build from source and add it to your extension list manually as follows:
+BetterSearch can be added to your Chrome extension list. Click [here](https://chrome.google.com/webstore/detail/bettersearch/lklkkcajhjdephgieocndlemnkcgchln) to download!
+
+## Developers
 
 ### Clone the repository locally.
 
