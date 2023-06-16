@@ -35,14 +35,6 @@ chrome.commands.onCommand.addListener((command) => {
   }
 });
 
-// chrome.action.onClicked.addListener(() => {
-//   const sendObj: communicationInfo = {
-//     from: 'background',
-//     subject: 'toggle_popup',
-//   };
-//   sendData(sendObj);
-// });
-
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.popupMounted) {
     console.log('eventPage notified that popup.tsx has mounted');
