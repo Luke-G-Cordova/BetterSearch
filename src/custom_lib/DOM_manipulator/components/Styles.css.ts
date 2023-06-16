@@ -1,6 +1,6 @@
 export const styles = /*css*/ `
   *{
-    font-family: 'Almarai';
+    font-family: sans-serif;
   }
   /* no select */
   div {
