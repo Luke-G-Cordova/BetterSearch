@@ -1,38 +1,71 @@
-$primary-color: rgb(228, 24, 207);
+$primary-color: black;
 $background-color: #d1d1d1;
 
 // Chrome applies an 8px margin by default (gross).
 body {
   margin: 0px;
-  width: 300px;
-  height: 400px;
+  width: 350px;
+  height: 500px;
+  background-image: linear-gradient(135deg, #2da6fd, #09eb99);
 }
 
 .popupContainer {
+  margin: 5px;
   box-sizing: border-box;
-  width: 100%;
-  height: 400px;
+  width: 340px;
+  height: 495px;
   background-color: $background-color;
   border: 0px solid $primary-color;
   color: $primary-color;
 }
 
+.logoWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
 .logoArea {
-  height: 30px;
-  width: 200px;
-  border-radius: 20px;
+  height: 50px;
+  width: 300px;
+  border-radius: 40px;
   background-color: white;
   color: $background-color;
   display: flex;
   align-items: center;
-  font-size: 15px;
+  font-size: 25px;
   font-weight: bold;
   box-shadow: 2px 3px 3px rgb(0, 0, 0, 0.25);
 }
 .logoArea img {
-  height: 25px;
+  height: 40px;
   width: auto;
-  padding: 0 5px 0 5px;
+  padding: 1px 8px 0 8px;
+}
+
+.defaultSettings {
+  padding: 10px;
+}
+.defaultSettingsHeader {
+  font-size: 20px;
+  color: black;
+}
+
+.topSection {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 5px;
+  margin: 5px 0;
+}
+.topSection > div {
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px;
+  width: 45%;
+}
+
+.searchTypeHeader {
+  font-size: 15px;
+  font-weight: 500;
 }
 
 ul {
