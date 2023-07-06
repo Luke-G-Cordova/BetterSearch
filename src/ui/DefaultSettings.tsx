@@ -16,25 +16,23 @@ interface DSProps {
   DEFAULTS: DefaultSettings;
 }
 export default function DefaultSettings({ DEFAULTS }: DSProps) {
-  const [defaults, setDefaults] = useState(DEFAULTS);
-
-  const [searchType, setSearchType] = useState(defaults?.searchType.default);
+  const [searchType, setSearchType] = useState(DEFAULTS?.searchType.default);
   const [caseSensitiveExact, setCaseSensitiveExact] = useState(
-    defaults.ST0CaseSens.default,
+    DEFAULTS.ST0CaseSens.default,
   );
   const [caseSensitiveRegex, setCaseSensitiveRegex] = useState(
-    defaults.ST1CaseSens.default,
+    DEFAULTS.ST1CaseSens.default,
   );
-  const [looseSearchPercent, setLooseSearchPercent] = useState(
-    defaults.ST2PercentMatch.default,
+  const [percentMatch, setPercentMatch] = useState(
+    DEFAULTS.ST2PercentMatch.default,
   );
   const [maximumMatches, setMaximumMatches] = useState(
-    defaults?.maximumMatches.default,
+    DEFAULTS?.maximumMatches.default,
   );
   const [selectionColor, setSelectionColor] = useState(
-    defaults?.selectionColor.default,
+    DEFAULTS?.selectionColor.default,
   );
-  const [autoScroll, setAutoScroll] = useState(defaults?.autoScroll.default);
+  const [autoScroll, setAutoScroll] = useState(DEFAULTS?.autoScroll.default);
 
   const [coms, setComs] = useState<chrome.commands.Command[]>([]);
 
@@ -43,6 +41,10 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
     chrome.commands.getAll((commands) => {
       setComs(commands);
     });
+
+    // only want to set the initial selection color, this hook executes once so doing it here is fine
+    (document.querySelector('input#selectionColor') as HTMLInputElement).value =
+      selectionColor;
   }, []);
 
   return (
@@ -120,15 +122,13 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
                 max="1"
                 step=".01"
                 disabled={searchType !== 2}
-                value={looseSearchPercent}
+                value={percentMatch}
                 onInput={(e) => {
-                  setLooseSearchPercent(
-                    Number((e.target as HTMLInputElement).value),
-                  );
+                  setPercentMatch(Number((e.target as HTMLInputElement).value));
                 }}
               />
             </div>
-            <span>{looseSearchPercent}</span>
+            <span>{percentMatch}</span>
           </div>
         </div>
 
@@ -158,7 +158,6 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
             <input
               id="selectionColor"
               type="color"
-              value={'#' + selectionColor}
               onInput={(e) =>
                 setSelectionColor((e.target as HTMLInputElement).value)
               }
@@ -201,15 +200,15 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
         <div
           className="saveBtn"
           onClick={() => {
-            defaults.searchType.default = searchType;
-            defaults.ST0CaseSens.default = caseSensitiveExact;
-            defaults.ST1CaseSens.default = caseSensitiveRegex;
-            defaults.ST2PercentMatch.default = looseSearchPercent;
-            defaults.maximumMatches.default = maximumMatches;
-            defaults.autoScroll.default = autoScroll;
-            defaults.selectionColor.default = selectionColor;
+            DEFAULTS.searchType.default = searchType;
+            DEFAULTS.ST0CaseSens.default = caseSensitiveExact;
+            DEFAULTS.ST1CaseSens.default = caseSensitiveRegex;
+            DEFAULTS.ST2PercentMatch.default = percentMatch;
+            DEFAULTS.maximumMatches.default = maximumMatches;
+            DEFAULTS.autoScroll.default = autoScroll;
+            DEFAULTS.selectionColor.default = selectionColor;
 
-            chrome.storage.sync.set(defaults);
+            chrome.storage.sync.set(DEFAULTS);
           }}
         >
           SAVE
