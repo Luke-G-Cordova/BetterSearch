@@ -220,7 +220,11 @@ body {
   border-radius: 8px;
   font-weight: bold;
   display: inline-block;
+  border: none;
 }
 .saveBtn:hover {
   cursor: pointer;
+}
+.saveBtn:active {
+  background-color: #2da6fd;
 }

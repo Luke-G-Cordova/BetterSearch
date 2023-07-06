@@ -18,13 +18,13 @@ interface DSProps {
 export default function DefaultSettings({ DEFAULTS }: DSProps) {
   const [searchType, setSearchType] = useState(DEFAULTS?.searchType.default);
   const [caseSensitiveExact, setCaseSensitiveExact] = useState(
-    DEFAULTS.ST0CaseSens.default,
+    DEFAULTS?.ST0CaseSens.default,
   );
   const [caseSensitiveRegex, setCaseSensitiveRegex] = useState(
-    DEFAULTS.ST1CaseSens.default,
+    DEFAULTS?.ST1CaseSens.default,
   );
   const [percentMatch, setPercentMatch] = useState(
-    DEFAULTS.ST2PercentMatch.default,
+    DEFAULTS?.ST2PercentMatch.default,
   );
   const [maximumMatches, setMaximumMatches] = useState(
     DEFAULTS?.maximumMatches.default,
@@ -44,7 +44,7 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
 
     // only want to set the initial selection color, this hook executes once so doing it here is fine
     (document.querySelector('input#selectionColor') as HTMLInputElement).value =
-      selectionColor;
+      DEFAULTS?.selectionColor.default;
   }, []);
 
   return (
@@ -198,7 +198,7 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
             Change Keyboard Shortcuts
           </a>
         </div>
-        <div
+        <button
           className="saveBtn"
           onClick={() => {
             DEFAULTS.searchType.default = searchType;
@@ -213,7 +213,7 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
           }}
         >
           SAVE
-        </div>
+        </button>
       </div>
     </div>
   );
