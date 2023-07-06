@@ -212,3 +212,15 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+.saveBtn {
+  padding: 5px;
+  font-size: 13px;
+  background-color: #09eb99;
+  border-radius: 8px;
+  font-weight: bold;
+  display: inline-block;
+}
+.saveBtn:hover {
+  cursor: pointer;
+}

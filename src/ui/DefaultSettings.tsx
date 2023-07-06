@@ -173,7 +173,8 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
             {coms.map((com, i) =>
               com.name !== '_execute_action' ? (
                 <div className="command" key={i}>
-                  <div className="cmdName">{com.name}: </div>
+                  <span className="cmdName">{com.name}:</span>{' '}
+                  <span>{com.description}</span>
                   <div className="cmd">
                     <div>Keyboard Shortcut: </div>
                     {com.shortcut}
