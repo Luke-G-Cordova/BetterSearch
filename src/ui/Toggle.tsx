@@ -2,6 +2,7 @@ import * as React from 'react';
 
 interface ToggleProps {
   defaultChecked?: boolean;
+  label?: string;
   htmlFor: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -9,12 +10,13 @@ interface ToggleProps {
 export default function Toggle({
   defaultChecked = false,
   htmlFor,
+  label,
   onChange,
 }: ToggleProps) {
   return (
     <div className="toggle">
       <label htmlFor={htmlFor}>
-        {htmlFor}
+        {label}
         <input
           type="checkbox"
           defaultChecked={defaultChecked}
@@ -26,6 +28,7 @@ export default function Toggle({
           }}
         />
         <div className="togglePill">
+          <div className="togglePillGrad"></div>
           <span className="toggleSlider" />
         </div>
       </label>
