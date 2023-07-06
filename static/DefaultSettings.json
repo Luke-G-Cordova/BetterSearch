@@ -42,8 +42,8 @@
   },
   "selectionColor": {
     "continuous": true,
-    "possible": ["000000", "ffffff"],
-    "default": "fbff00",
+    "possible": ["#000000", "#ffffff"],
+    "default": "#fbff00",
     "description": "Hexadecimal color for highlighting matches",
     "childSettings": []
   }
