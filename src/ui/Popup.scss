@@ -50,24 +50,128 @@ body {
   color: black;
 }
 
-.topSection {
-  display: flex;
-  justify-content: space-evenly;
-  gap: 5px;
-  margin: 5px 0;
-}
-.topSection > div {
+.settingsArea {
   background-color: white;
   border-radius: 8px;
   padding: 10px;
-  width: 45%;
+  // width: 45%;
 }
 
 .searchTypeHeader {
   font-size: 15px;
+  font-weight: 400;
+}
+.searchTypeHeader > span {
+  text-transform: uppercase;
   font-weight: 500;
+  background-image: linear-gradient(135deg, #2da6fd, #09eb99);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-ul {
-  margin: 0;
+.searchTypes {
+  height: 35px;
+}
+.searchTypes > form {
+  display: flex;
+  justify-content: space-evenly;
+}
+.searchTypes > form > div > input {
+  display: none;
+}
+.searchTypes > form > div > label:hover {
+  cursor: pointer;
+}
+
+.searchTypes > form > div > label {
+  font-size: 13px;
+  text-align: center;
+  display: block;
+  padding: 5px 0px;
+  transition: all 0.7s;
+  color: $background-color;
+}
+
+.searchTypes > form > div > input:checked + label {
+  font-size: 17px;
+  font-weight: bold;
+  background-image: linear-gradient(135deg, #2da6fd, #09eb99);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.7s;
+}
+
+.searchTypes > form > div {
+  flex-grow: 1;
+}
+
+.searchTypes > form > div:not(:first-child)::before {
+  content: '';
+  position: absolute;
+  display: inline-block;
+  width: 1px;
+  height: 30px;
+  background-color: #939393;
+}
+
+.searchTypeSettings {
+  height: 50px;
+  padding: 5px 0px;
+}
+
+.horizontalBreak {
+  height: 1px;
+  width: 80%;
+  margin: auto;
+  // background-color: black;
+  border-top: 1px solid #939393;
+}
+
+.generalSettings {
+  margin-top: 20px;
+}
+
+.toggle input {
+  display: none;
+}
+.toggle > label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+.togglePill {
+  width: 50px;
+  height: 25px;
+  border-radius: 40px;
+  background-color: #c9c9c9;
+  display: inline-block;
+  position: relative;
+  transition: background-color 0.3s ease-in-out;
+}
+.toggleSlider {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 21px;
+  height: 21px;
+  border-radius: 30px;
+  background-color: white;
+  transition: left 0.3s ease-in-out;
+}
+.toggle > label > input:checked + .togglePill {
+  background-color: #2da6fd;
+}
+.toggle > label > input:checked + .togglePill > .toggleSlider {
+  left: 27px;
+}
+
+.inputWrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
+#maximumMatches {
+  width: 40px;
+  padding: 2px;
 }
