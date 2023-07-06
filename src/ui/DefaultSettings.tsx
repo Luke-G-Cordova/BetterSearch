@@ -17,9 +17,19 @@ export default function DefaultSettings() {
   const [looseSearchPercent, setLooseSearchPercent] = useState(0.75);
   const [maximumMatches, setMaximumMatches] = useState(100);
   const [selectionColor, setSelectionColor] = useState('#fbff00');
+
+  const [coms, setComs] = useState<chrome.commands.Command[]>([]);
+  useEffect(() => {
+    // Example of how to send a message to eventPage.ts.
+    chrome.runtime.sendMessage({ popupMounted: true });
+    chrome.commands.getAll((commands) => {
+      console.log(commands);
+      setComs(commands);
+    });
+  }, []);
+
   return (
     <div className="defaultSettings">
-      <div className="defaultSettingsHeader">Default Settings:</div>
       <div className="settingsArea">
         <div className="searchTypes">
           <form>
@@ -60,13 +70,13 @@ export default function DefaultSettings() {
             className="typeSetting emSettings"
             style={{ display: searchType === 0 ? 'block' : 'none' }}
           >
-            <Toggle htmlFor="Case Sensitivity" />
+            <Toggle htmlFor="emCase" label="Case Sensitivity" />
           </div>
           <div
             className="typeSetting rgSettings"
             style={{ display: searchType === 1 ? 'block' : 'none' }}
           >
-            <Toggle htmlFor="Case Sensitivity" />
+            <Toggle htmlFor="rgCase" label="Case Sensitivity" />
           </div>
           <div
             className="typeSetting lSettings"
@@ -98,7 +108,7 @@ export default function DefaultSettings() {
         <div className="horizontalBreak"></div>
 
         <div className="generalSettings">
-          <Toggle htmlFor="Auto Scroll" />
+          <Toggle htmlFor="autoScroll" label="Auto Scroll" />
           <div className="inputWrapper">
             <label htmlFor="maximumMatches">Maximum Matches</label>
             <input
@@ -122,6 +132,35 @@ export default function DefaultSettings() {
               }
             />
           </div>
+        </div>
+
+        <div className="horizontalBreak"></div>
+
+        <div className="keybindings">
+          <div className="keybindingsHeader">Keybindings: </div>
+          <div className="cmdArea">
+            {coms.map((com, i) => (
+              <div className="command" key={i}>
+                <div className="cmdName">{com.name}: </div>
+                <div className="cmdDesc">
+                  <div>Description: </div>
+                  {com.description}
+                </div>
+                <div className="cmd">
+                  <div>Keyboard Shortcut: </div>
+                  {com.shortcut}
+                </div>
+              </div>
+            ))}
+          </div>
+          <a
+            href="#"
+            onClick={() =>
+              chrome.tabs.create({ url: 'chrome://extensions/shortcuts' })
+            }
+          >
+            Change Keyboard Shortcuts
+          </a>
         </div>
       </div>
     </div>

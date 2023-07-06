@@ -5,16 +5,6 @@ import Logo from './Logo';
 import DefaultSettings from './DefaultSettings';
 
 export default function Popup() {
-  const [coms, setComs] = useState<chrome.commands.Command[]>([]);
-  useEffect(() => {
-    // Example of how to send a message to eventPage.ts.
-    chrome.runtime.sendMessage({ popupMounted: true });
-    chrome.commands.getAll((commands) => {
-      console.log(commands);
-      setComs(commands);
-    });
-  }, []);
-
   return (
     <div className="popupContainer">
       <Logo />
