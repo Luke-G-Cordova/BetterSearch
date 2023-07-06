@@ -1,3 +1,24 @@
+import { getStorageData, initializeStorageWithDefaults } from './storage';
+import * as defaults from '../static/DefaultSettings.json';
+
+let DEFAULTS: DefaultSettings;
+
+chrome.runtime.onInstalled.addListener(async () => {
+  await initializeStorageWithDefaults(defaults);
+  DEFAULTS = (await getStorageData()) as DefaultSettings;
+  console.log('extension installed successfully');
+});
+
+// Log storage changes, might be safely removed
+chrome.storage.onChanged.addListener(async (changes) => {
+  DEFAULTS = (await getStorageData()) as DefaultSettings;
+  for (const [key, value] of Object.entries(changes)) {
+    console.log(
+      `"${key}" changed from "${value.oldValue}" to "${value.newValue}"`,
+    );
+  }
+});
+
 /**
  * sends data to different parts of the extension
  * @param data object to be sent
@@ -35,8 +56,12 @@ chrome.commands.onCommand.addListener((command) => {
   }
 });
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+  console.log(request);
   if (request.popupMounted) {
     console.log('eventPage notified that popup.tsx has mounted');
+  }
+  if (request.defaultSettingsRequest) {
+    sendResponse(DEFAULTS);
   }
 });
