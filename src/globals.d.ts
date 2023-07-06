@@ -34,3 +34,21 @@ interface GlobalObject {
   getGI: (key: string) => number;
   formWrapper: HTMLElement | null;
 }
+
+interface Setting {
+  continuous: boolean;
+  possible: any[];
+  default: any;
+  description: string;
+  childSettings?: any[];
+}
+
+interface DefaultSettings {
+  searchType: Setting;
+  autoScroll: Setting;
+  maximumMatches: Setting;
+  selectionColor: Setting;
+  ST0CaseSens: Setting;
+  ST1CaseSens: Setting;
+  ST2PercentMatch: Setting;
+}
