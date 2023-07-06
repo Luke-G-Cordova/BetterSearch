@@ -158,7 +158,7 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
             <input
               id="selectionColor"
               type="color"
-              value={selectionColor}
+              value={'#' + selectionColor}
               onInput={(e) =>
                 setSelectionColor((e.target as HTMLInputElement).value)
               }
