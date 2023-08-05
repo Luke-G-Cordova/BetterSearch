@@ -64,4 +64,11 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   if (request.defaultSettingsRequest) {
     sendResponse(DEFAULTS);
   }
+  if (request.toggle_popup) {
+    const sendObj: communicationInfo = {
+      from: 'background',
+      subject: 'toggle_popup',
+    };
+    sendData(sendObj);
+  }
 });
