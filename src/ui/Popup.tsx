@@ -12,8 +12,8 @@ export default function Popup({ DEFAULTS }: PopupProps) {
   return (
     <div className="popupContainer">
       <Logo />
-      <SettingImporter />
-      {/* <DefaultSettings DEFAULTS={DEFAULTS} /> */}
+      {/* <SettingImporter /> */}
+      <DefaultSettings DEFAULTS={DEFAULTS} />
       {/* <ul>
         {coms.map((com, i) => (
           <li key={i}>{com.name}</li>

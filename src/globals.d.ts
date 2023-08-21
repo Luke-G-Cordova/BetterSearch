@@ -43,12 +43,23 @@ interface Setting {
   childSettings?: any[];
 }
 
-interface DefaultSettings {
-  searchType: Setting;
+interface SettingGroup {
   autoScroll: Setting;
   maximumMatches: Setting;
   selectionColor: Setting;
-  ST0CaseSens: Setting;
-  ST1CaseSens: Setting;
-  ST2PercentMatch: Setting;
+}
+interface ST0Group extends SettingGroup {
+  caseSens: Setting;
+}
+interface ST1Group extends SettingGroup {
+  caseSens: Setting;
+}
+interface ST2Group extends SettingGroup {
+  percentMatch: Setting;
+}
+interface DefaultSettings {
+  searchType: Setting;
+  ST0: ST0Group;
+  ST1: ST1Group;
+  ST2: ST2Group;
 }
