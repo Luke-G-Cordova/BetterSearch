@@ -21,22 +21,19 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
   const [exactMatch, setExactMatch] = useState(DEFAULTS?.ST0);
   const [regularExp, setRegularExp] = useState(DEFAULTS?.ST1);
   const [looseSearch, setLooseSearch] = useState(DEFAULTS?.ST2);
+
   const searchTypes = [exactMatch, regularExp, looseSearch];
   const searchTypeSetters = [setExactMatch, setRegularExp, setLooseSearch];
   const searchTypeNames = ['Exact Match', 'Regular Expression', 'Loose Search'];
 
-  // const [coms, setComs] = useState<chrome.commands.Command[]>([]);
+  const [coms, setComs] = useState<chrome.commands.Command[]>([]);
 
-  // // get current keyboard shortcuts
-  // useEffect(() => {
-  //   chrome.commands.getAll((commands) => {
-  //     setComs(commands);
-  //   });
-
-  //   // only want to set the initial selection color, this hook executes once so doing it here is fine
-  //   (document.querySelector('input#selectionColor') as HTMLInputElement).value =
-  //     DEFAULTS?.selectionColor.default;
-  // }, []);
+  // get current keyboard shortcuts
+  useEffect(() => {
+    chrome.commands.getAll((commands) => {
+      setComs(commands);
+    });
+  }, []);
 
   return (
     <div className="defaultSettings">
@@ -100,6 +97,48 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
                 />
               </label>
             ))}
+          </div>
+          <div className="keybindings">
+            {coms.map((com, i) =>
+              i === 1 ? (
+                <div key={`keybindings${i}`}>
+                  Toggle BetterSearch:{' '}
+                  <span className="color-s1">{com.shortcut}</span>
+                </div>
+              ) : (
+                ''
+              ),
+            )}
+            <div>
+              <a
+                href="#"
+                onClick={() =>
+                  chrome.tabs.create({ url: 'chrome://extensions/shortcuts' })
+                }
+              >
+                Change KeyBinding
+              </a>
+            </div>
+          </div>
+          <div className="footer">
+            <a
+              href="#"
+              onClick={() =>
+                chrome.tabs.create({
+                  url: 'https://github.com/Luke-G-Cordova/BetterSearch',
+                })
+              }
+            >
+              <img className="footer-icon" src="./icons/github-icon.svg" />
+            </a>
+            <a
+              href="#"
+              onClick={() =>
+                chrome.tabs.create({ url: 'https://discord.gg/7kByJNYG' })
+              }
+            >
+              <img className="footer-icon" src="./icons/discord-icon.svg" />
+            </a>
           </div>
         </div>
       </div>
