@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import * as React from 'react';
 import { default as Toggle } from './Toggle';
+import CustomInput from './CustomInput';
 
 /**
  * exact match
@@ -16,10 +17,13 @@ interface DSProps {
   DEFAULTS: DefaultSettings;
 }
 export default function DefaultSettings({ DEFAULTS }: DSProps) {
-  const [searchType, setSearchType] = useState(DEFAULTS?.searchType.default);
+  const [sti, setSearchType] = useState(DEFAULTS?.searchType.default);
   const [exactMatch, setExactMatch] = useState(DEFAULTS?.ST0);
   const [regularExp, setRegularExp] = useState(DEFAULTS?.ST1);
   const [looseSearch, setLooseSearch] = useState(DEFAULTS?.ST2);
+  const searchTypes = [exactMatch, regularExp, looseSearch];
+  const searchTypeSetters = [setExactMatch, setRegularExp, setLooseSearch];
+  const searchTypeNames = ['Exact Match', 'Regular Expression', 'Loose Search'];
 
   // const [coms, setComs] = useState<chrome.commands.Command[]>([]);
 
@@ -39,7 +43,7 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
       <div className="settingsArea">
         <div className="searchTypeTabs">
           <div
-            className={searchType === 0 ? 'current' : ''}
+            className={sti === 0 ? 'current' : ''}
             onClick={() => setSearchType(0)}
           >
             <span>
@@ -49,7 +53,7 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
             </span>
           </div>
           <div
-            className={searchType === 1 ? 'current' : ''}
+            className={sti === 1 ? 'current' : ''}
             onClick={() => setSearchType(1)}
           >
             <span>
@@ -59,7 +63,7 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
             </span>
           </div>
           <div
-            className={searchType === 2 ? 'current' : ''}
+            className={sti === 2 ? 'current' : ''}
             onClick={() => setSearchType(2)}
           >
             <span>
@@ -71,35 +75,29 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
         </div>
         <div className="searchTypeSettings">
           <div className="searchTypeHeader">
-            {searchType === 0
-              ? 'Exact Match'
-              : searchType === 1
-              ? 'Regular Expression'
-              : 'Loose Search'}{' '}
-            Defaults
+            {searchTypeNames[sti]} Defaults
           </div>
 
           <div className="searchTypeDefaults">
-            {Object.values(
-              searchType === 0
-                ? exactMatch
-                : searchType === 1
-                ? regularExp
-                : looseSearch,
-            ).map((val, i) => (
-              <label htmlFor={val.name} key={i}>
+            {Object.values(searchTypes[sti]).map((val, i) => (
+              <label htmlFor={val.name} key={`${sti}${i}`}>
                 {val.name}:{' '}
-                {val.type === 'toggle' ? (
-                  <Toggle htmlFor={val.name} />
-                ) : val.type === 'range' ? (
-                  <input type="range" id={val.name} />
-                ) : val.type === 'hex' ? (
-                  <input type="color" id={val.name} />
-                ) : val.type === 'number' ? (
-                  <input type="number" id={val.name} />
-                ) : (
-                  'unsupported type'
-                )}
+                <CustomInput
+                  type={val.type}
+                  id={val.name}
+                  {...(val.type === 'toggle'
+                    ? { defaultChecked: val.default }
+                    : { defaultValue: val.default })}
+                  onChange={(e) => {
+                    searchTypeSetters[sti]((st: any) => {
+                      st[Object.keys(st)[i]].default =
+                        val.type === 'toggle'
+                          ? e.target.checked
+                          : e.target.value;
+                      return st;
+                    });
+                  }}
+                />
               </label>
             ))}
           </div>
