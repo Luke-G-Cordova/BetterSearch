@@ -36,7 +36,8 @@ interface GlobalObject {
 }
 
 interface Setting {
-  continuous: boolean;
+  name: string;
+  type: 'boolean' | 'range' | 'hex' | 'number';
   possible: any[];
   default: any;
   description: string;

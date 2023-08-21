@@ -80,62 +80,28 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
           </div>
 
           <div className="searchTypeDefaults">
-            {searchType === 0 ? (
-              <>
-                <label htmlFor="CaseSensitivity">
-                  Case Sensitivity: <Toggle htmlFor="CaseSensitivity" />
-                </label>
-                <label htmlFor="AutoScroll">
-                  Auto Scroll: <Toggle htmlFor="AutoScroll" />
-                </label>
-                <label htmlFor="MaximumMatches">
-                  Maximum Matches: <input type="number" id="MaximumMatches" />
-                </label>
-                <label htmlFor="SelectionColor">
-                  Selection Color: <input type="color" id="SelectionColor" />
-                </label>
-              </>
-            ) : searchType === 1 ? (
-              <>
-                <label htmlFor="CaseSensitivity">
-                  Case Sensitivity: <Toggle htmlFor="CaseSensitivity" />
-                </label>
-                <label htmlFor="AutoScroll">
-                  Auto Scroll: <Toggle htmlFor="AutoScroll" />
-                </label>
-                <label htmlFor="MaximumMatches">
-                  Maximum Matches: <input type="number" id="MaximumMatches" />
-                </label>
-                <label htmlFor="SelectionColor">
-                  Selection Color: <input type="color" id="SelectionColor" />
-                </label>
-              </>
-            ) : searchType === 2 ? (
-              <>
-                <label htmlFor="PercentMatch">
-                  Percent Match:{' '}
-                  <input
-                    id="PercentMatch"
-                    type="range"
-                    min="0"
-                    max="1"
-                    step=".01"
-                    defaultValue={0.75}
-                  />
-                </label>
-                <label htmlFor="AutoScroll">
-                  Auto Scroll: <Toggle htmlFor="AutoScroll" />
-                </label>
-                <label htmlFor="MaximumMatches">
-                  Maximum Matches: <input type="number" id="MaximumMatches" />
-                </label>
-                <label htmlFor="SelectionColor">
-                  Selection Color: <input type="color" id="SelectionColor" />
-                </label>
-              </>
-            ) : (
-              'unavailable search type'
-            )}
+            {Object.values(
+              searchType === 0
+                ? exactMatch
+                : searchType === 1
+                ? regularExp
+                : looseSearch,
+            ).map((val, i) => (
+              <label htmlFor={val.name} key={i}>
+                {val.name}:{' '}
+                {val.type === 'toggle' ? (
+                  <Toggle htmlFor={val.name} />
+                ) : val.type === 'range' ? (
+                  <input type="range" id={val.name} />
+                ) : val.type === 'hex' ? (
+                  <input type="color" id={val.name} />
+                ) : val.type === 'number' ? (
+                  <input type="number" id={val.name} />
+                ) : (
+                  'unsupported type'
+                )}
+              </label>
+            ))}
           </div>
         </div>
       </div>

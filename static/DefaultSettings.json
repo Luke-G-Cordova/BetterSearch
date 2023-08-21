@@ -1,34 +1,39 @@
 {
   "searchType": {
-    "continuous": false,
+    "name": "Search Type",
+    "type": "number",
     "possible": [0, 1, 2],
     "default": 0,
     "description": "An index representing the type of search to default to. The order of search types is as follows, 0=Exact Match, 1=Regular Expression, 2=Loose"
   },
   "ST0": {
     "caseSens": {
-      "continuous": false,
+      "name": "Case Sensitivity",
+      "type": "toggle",
       "possible": [true, false],
       "default": false,
       "description": "Represents the case sensitivity of the Exact Match search type",
       "childSettings": []
     },
     "autoScroll": {
-      "continuous": false,
+      "name": "Auto Scroll",
+      "type": "toggle",
       "possible": [true, false],
       "default": true,
       "description": "toggles auto scrolling feature",
       "childSettings": []
     },
     "maximumMatches": {
-      "continuous": false,
+      "name": "Maximum Matches",
+      "type": "number",
       "possible": [0, 100000],
       "default": 100,
       "description": "Represents the maximum amount of matches to search for",
       "childSettings": []
     },
     "selectionColor": {
-      "continuous": true,
+      "name": "Selection Color",
+      "type": "hex",
       "possible": ["#000000", "#ffffff"],
       "default": "#fbff00",
       "description": "Hexadecimal color for highlighting matches",
@@ -37,28 +42,32 @@
   },
   "ST1": {
     "caseSens": {
-      "continuous": false,
+      "name": "Case Sensitivity",
+      "type": "toggle",
       "possible": [true, false],
       "default": false,
-      "description": "Represents the case sensitivity of the Regular Expression search type",
+      "description": "Represents the case sensitivity of the Exact Match search type",
       "childSettings": []
     },
     "autoScroll": {
-      "continuous": false,
+      "name": "Auto Scroll",
+      "type": "toggle",
       "possible": [true, false],
       "default": true,
       "description": "toggles auto scrolling feature",
       "childSettings": []
     },
     "maximumMatches": {
-      "continuous": false,
+      "name": "Maximum Matches",
+      "type": "number",
       "possible": [0, 100000],
       "default": 100,
       "description": "Represents the maximum amount of matches to search for",
       "childSettings": []
     },
     "selectionColor": {
-      "continuous": true,
+      "name": "Selection Color",
+      "type": "hex",
       "possible": ["#000000", "#ffffff"],
       "default": "#fbff00",
       "description": "Hexadecimal color for highlighting matches",
@@ -67,28 +76,32 @@
   },
   "ST2": {
     "percentMatch": {
-      "continuous": true,
+      "name": "Percent Match",
+      "type": "range",
       "possible": [0, 1],
       "default": 0.75,
       "description": "Represents the amount a selection has to match before selecting it for Loose Search.",
       "childSettings": []
     },
     "autoScroll": {
-      "continuous": false,
+      "name": "Auto Scroll",
+      "type": "toggle",
       "possible": [true, false],
       "default": true,
       "description": "Toggles auto scrolling feature",
       "childSettings": []
     },
     "maximumMatches": {
-      "continuous": false,
+      "name": "Maximum Matches",
+      "type": "number",
       "possible": [0, 100000],
       "default": 100,
       "description": "Represents the maximum amount of matches to search for",
       "childSettings": []
     },
     "selectionColor": {
-      "continuous": true,
+      "name": "Selection Color",
+      "type": "hex",
       "possible": ["#000000", "#ffffff"],
       "default": "#fbff00",
       "description": "Hexadecimal color for highlighting matches",
