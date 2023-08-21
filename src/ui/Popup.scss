@@ -122,7 +122,7 @@ body {
 //   margin-top: 20px;
 // }
 
-.toggle input {
+.toggle > input {
   display: none;
 }
 .togglePill {
@@ -160,6 +160,12 @@ body {
   left: 27px;
 }
 
+.colorInput {
+  -webkit-appearance: none;
+  border: none;
+  box-sizing: border-box;
+  padding: 0px;
+}
 // .inputWrapper {
 //   display: flex;
 //   justify-content: flex-end;
