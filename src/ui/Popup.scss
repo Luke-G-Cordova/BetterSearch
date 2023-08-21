@@ -1,8 +1,24 @@
 $primary-1: #2da6fd;
 $primary-2: #09eb99;
-$secondary: #dd5d00;
+$secondary-1: #dd5d00;
 $neutral: #d1d1d1;
 $neutral-dark: #a1a1a1;
+
+.color-p1 {
+  color: $primary-1;
+}
+.color-p2 {
+  color: $primary-2;
+}
+.color-s1 {
+  color: $secondary-1;
+}
+.color-n {
+  color: $neutral;
+}
+.color-nd {
+  color: $neutral-dark;
+}
 
 // Chrome applies an 8px margin by default (gross).
 body {
@@ -80,7 +96,7 @@ body {
   cursor: pointer;
 }
 .searchTypeTabs > .current {
-  color: $secondary;
+  color: $secondary-1;
   padding: 3px;
   border-top: 3px solid $primary-1;
   border-left: 3px solid $primary-1;
@@ -109,6 +125,25 @@ body {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
+}
+
+.keybindings {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 105px;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.footer-icon {
+  width: 24px;
+  height: auto;
 }
 // .horizontalBreak {
 //   height: 1px;
