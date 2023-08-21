@@ -17,203 +17,127 @@ interface DSProps {
 }
 export default function DefaultSettings({ DEFAULTS }: DSProps) {
   const [searchType, setSearchType] = useState(DEFAULTS?.searchType.default);
-  const [caseSensitiveExact, setCaseSensitiveExact] = useState(
-    DEFAULTS?.ST0CaseSens.default,
-  );
-  const [caseSensitiveRegex, setCaseSensitiveRegex] = useState(
-    DEFAULTS?.ST1CaseSens.default,
-  );
-  const [percentMatch, setPercentMatch] = useState(
-    DEFAULTS?.ST2PercentMatch.default,
-  );
-  const [maximumMatches, setMaximumMatches] = useState(
-    DEFAULTS?.maximumMatches.default,
-  );
-  const [selectionColor, setSelectionColor] = useState(
-    DEFAULTS?.selectionColor.default,
-  );
-  const [autoScroll, setAutoScroll] = useState(DEFAULTS?.autoScroll.default);
+  const [exactMatch, setExactMatch] = useState(DEFAULTS?.ST0);
+  const [regularExp, setRegularExp] = useState(DEFAULTS?.ST1);
+  const [looseSearch, setLooseSearch] = useState(DEFAULTS?.ST2);
 
-  const [coms, setComs] = useState<chrome.commands.Command[]>([]);
+  // const [coms, setComs] = useState<chrome.commands.Command[]>([]);
 
-  // get current keyboard shortcuts
-  useEffect(() => {
-    chrome.commands.getAll((commands) => {
-      setComs(commands);
-    });
+  // // get current keyboard shortcuts
+  // useEffect(() => {
+  //   chrome.commands.getAll((commands) => {
+  //     setComs(commands);
+  //   });
 
-    // only want to set the initial selection color, this hook executes once so doing it here is fine
-    (document.querySelector('input#selectionColor') as HTMLInputElement).value =
-      DEFAULTS?.selectionColor.default;
-  }, []);
+  //   // only want to set the initial selection color, this hook executes once so doing it here is fine
+  //   (document.querySelector('input#selectionColor') as HTMLInputElement).value =
+  //     DEFAULTS?.selectionColor.default;
+  // }, []);
 
   return (
     <div className="defaultSettings">
       <div className="settingsArea">
-        <div className="searchTypes">
-          <form>
-            <div className={searchType === 0 ? 'current' : ''}>
-              <input
-                id="emType"
-                type="checkbox"
-                onChange={() => setSearchType(0)}
-                checked={searchType === 0}
-              />
-              <label htmlFor="emType">Exact Match</label>
-            </div>
-
-            <div className={searchType === 1 ? 'current' : ''}>
-              <input
-                id="rgType"
-                type="checkbox"
-                onChange={() => setSearchType(1)}
-                checked={searchType === 1}
-              />
-              <label htmlFor="rgType">Regex</label>
-            </div>
-
-            <div className={searchType === 2 ? 'current' : ''}>
-              <input
-                id="lType"
-                type="checkbox"
-                onChange={() => setSearchType(2)}
-                checked={searchType === 2}
-              />
-              <label htmlFor="lType">Loose</label>
-            </div>
-          </form>
+        <div className="searchTypeTabs">
+          <div
+            className={searchType === 0 ? 'current' : ''}
+            onClick={() => setSearchType(0)}
+          >
+            <span>
+              Exact
+              <br />
+              Match
+            </span>
+          </div>
+          <div
+            className={searchType === 1 ? 'current' : ''}
+            onClick={() => setSearchType(1)}
+          >
+            <span>
+              Regular
+              <br />
+              Expression
+            </span>
+          </div>
+          <div
+            className={searchType === 2 ? 'current' : ''}
+            onClick={() => setSearchType(2)}
+          >
+            <span>
+              Loose
+              <br />
+              Search
+            </span>
+          </div>
         </div>
-
         <div className="searchTypeSettings">
-          <div
-            className="typeSetting emSettings"
-            style={{ display: searchType === 0 ? 'block' : 'none' }}
-          >
-            <Toggle
-              htmlFor="emCase"
-              label="Case Sensitivity"
-              defaultChecked={caseSensitiveExact}
-              onChange={(e) => setCaseSensitiveExact(e.target.checked)}
-            />
+          <div className="searchTypeHeader">
+            {searchType === 0
+              ? 'Exact Match'
+              : searchType === 1
+              ? 'Regular Expression'
+              : 'Loose Search'}{' '}
+            Defaults
           </div>
-          <div
-            className="typeSetting rgSettings"
-            style={{ display: searchType === 1 ? 'block' : 'none' }}
-          >
-            <Toggle
-              htmlFor="rgCase"
-              label="Case Sensitivity"
-              defaultChecked={caseSensitiveRegex}
-              onChange={(e) => setCaseSensitiveRegex(e.target.checked)}
-            />
-          </div>
-          <div
-            className="typeSetting lSettings"
-            style={{ display: searchType === 2 ? 'block' : 'none' }}
-          >
-            <div className="inputWrapper">
-              <label htmlFor="looseSearchSlider">
-                Loose Search Sensitivity
-              </label>
-              <input
-                id="looseSearchSlider"
-                type="range"
-                min="0"
-                max="1"
-                step=".01"
-                disabled={searchType !== 2}
-                value={percentMatch}
-                onInput={(e) => {
-                  setPercentMatch(Number((e.target as HTMLInputElement).value));
-                }}
-              />
-            </div>
-            <span>{percentMatch}</span>
-          </div>
-        </div>
 
-        <div className="horizontalBreak"></div>
-
-        <div className="generalSettings">
-          <Toggle
-            htmlFor="autoScroll"
-            label="Auto Scroll"
-            defaultChecked={autoScroll}
-            onChange={(e) => setAutoScroll(e.target.checked)}
-          />
-          <div className="inputWrapper">
-            <label htmlFor="maximumMatches">Maximum Matches</label>
-            <input
-              id="maximumMatches"
-              type="number"
-              value={maximumMatches}
-              min="0"
-              onInput={(e) =>
-                setMaximumMatches(Number((e.target as HTMLInputElement).value))
-              }
-            />
-          </div>
-          <div className="inputWrapper">
-            <label htmlFor="selectionColor">Selection Color</label>
-            <input
-              id="selectionColor"
-              type="color"
-              onInput={(e) =>
-                setSelectionColor((e.target as HTMLInputElement).value)
-              }
-            />
-          </div>
-        </div>
-
-        <div className="horizontalBreak"></div>
-
-        <div className="keybindings">
-          <div className="keybindingsHeader">Keybindings: </div>
-          <div className="cmdArea">
-            {coms.map((com, i) =>
-              com.name !== '_execute_action' ? (
-                <div className="command" key={i}>
-                  <span className="cmdName">{com.name}:</span>{' '}
-                  <span>{com.description}</span>
-                  <div className="cmd">
-                    <div>Keyboard Shortcut: </div>
-                    {com.shortcut}
-                  </div>
-                  <div className="cmdDesc">
-                    <div>Description: </div>
-                    {com.description}
-                  </div>
-                </div>
-              ) : (
-                ''
-              ),
+          <div className="searchTypeDefaults">
+            {searchType === 0 ? (
+              <>
+                <label htmlFor="CaseSensitivity">
+                  Case Sensitivity: <Toggle htmlFor="CaseSensitivity" />
+                </label>
+                <label htmlFor="AutoScroll">
+                  Auto Scroll: <Toggle htmlFor="AutoScroll" />
+                </label>
+                <label htmlFor="MaximumMatches">
+                  Maximum Matches: <input type="number" id="MaximumMatches" />
+                </label>
+                <label htmlFor="SelectionColor">
+                  Selection Color: <input type="color" id="SelectionColor" />
+                </label>
+              </>
+            ) : searchType === 1 ? (
+              <>
+                <label htmlFor="CaseSensitivity">
+                  Case Sensitivity: <Toggle htmlFor="CaseSensitivity" />
+                </label>
+                <label htmlFor="AutoScroll">
+                  Auto Scroll: <Toggle htmlFor="AutoScroll" />
+                </label>
+                <label htmlFor="MaximumMatches">
+                  Maximum Matches: <input type="number" id="MaximumMatches" />
+                </label>
+                <label htmlFor="SelectionColor">
+                  Selection Color: <input type="color" id="SelectionColor" />
+                </label>
+              </>
+            ) : searchType === 2 ? (
+              <>
+                <label htmlFor="PercentMatch">
+                  Percent Match:{' '}
+                  <input
+                    id="PercentMatch"
+                    type="range"
+                    min="0"
+                    max="1"
+                    step=".01"
+                    defaultValue={0.75}
+                  />
+                </label>
+                <label htmlFor="AutoScroll">
+                  Auto Scroll: <Toggle htmlFor="AutoScroll" />
+                </label>
+                <label htmlFor="MaximumMatches">
+                  Maximum Matches: <input type="number" id="MaximumMatches" />
+                </label>
+                <label htmlFor="SelectionColor">
+                  Selection Color: <input type="color" id="SelectionColor" />
+                </label>
+              </>
+            ) : (
+              'unavailable search type'
             )}
           </div>
-          <a
-            href="#"
-            onClick={() =>
-              chrome.tabs.create({ url: 'chrome://extensions/shortcuts' })
-            }
-          >
-            Change Keyboard Shortcuts
-          </a>
         </div>
-        <button
-          className="saveBtn"
-          onClick={() => {
-            DEFAULTS.searchType.default = searchType;
-            DEFAULTS.ST0CaseSens.default = caseSensitiveExact;
-            DEFAULTS.ST1CaseSens.default = caseSensitiveRegex;
-            DEFAULTS.ST2PercentMatch.default = percentMatch;
-            DEFAULTS.maximumMatches.default = maximumMatches;
-            DEFAULTS.autoScroll.default = autoScroll;
-            DEFAULTS.selectionColor.default = selectionColor;
-
-            chrome.storage.sync.set(DEFAULTS);
-          }}
-        >
-          SAVE
-        </button>
       </div>
     </div>
   );

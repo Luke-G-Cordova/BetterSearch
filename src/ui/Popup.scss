@@ -1,39 +1,42 @@
-$primary-color: black;
-$background-color: #d1d1d1;
+$primary-1: #2da6fd;
+$primary-2: #09eb99;
+$secondary: #dd5d00;
+$neutral: #d1d1d1;
+$neutral-dark: #a1a1a1;
 
 // Chrome applies an 8px margin by default (gross).
 body {
   margin: 0px;
   width: 350px;
-  // height: 500px;
+  height: 500px;
   background-image: linear-gradient(135deg, #2da6fd, #09eb99);
+  padding: 5px;
+  position: relative;
 }
-
 .popupContainer {
-  margin: 5px;
-  box-sizing: border-box;
-  width: 340px;
-  // height: 495px;
-  background-color: $background-color;
-  border: 0px solid $primary-color;
-  color: $primary-color;
-  overflow: auto;
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  right: 5px;
+  background-color: $neutral;
 }
 
 .logoWrapper {
   display: flex;
   justify-content: center;
-  padding: 15px;
+  padding-top: 19px;
 }
 .logoArea {
   height: 50px;
   width: 300px;
   border-radius: 40px;
   background-color: white;
-  color: $background-color;
+  color: $neutral;
   display: flex;
   align-items: center;
-  font-size: 25px;
+  font-size: 30px;
+  letter-spacing: -1.5%;
   font-weight: bold;
   box-shadow: 2px 3px 3px rgb(0, 0, 0, 0.25);
 }
@@ -41,112 +44,92 @@ body {
   cursor: pointer;
 }
 .logoArea img {
-  height: 40px;
+  height: 39px;
   width: auto;
-  padding: 1px 8px 0 8px;
+  padding: 0px 7px;
 }
 
 .defaultSettings {
-  padding: 10px;
+  display: flex;
+  justify-content: center;
+  padding-top: 12px;
 }
 
 .settingsArea {
   background-color: white;
-  border-radius: 8px;
-  padding: 10px;
-  // width: 45%;
+  border-radius: 11px;
+  width: 300px;
+  height: 395px;
+  box-shadow: 2px 3px 3px rgb(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.searchTypeTabs {
+  position: absolute;
+  top: 10px;
+  width: 300px;
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  font-size: 11px;
+  font-weight: bold;
+  color: $neutral;
+}
+.searchTypeTabs > div {
+  padding: 6px 6px 3px 6px;
+  cursor: pointer;
+}
+.searchTypeTabs > .current {
+  color: $secondary;
+  padding: 3px;
+  border-top: 3px solid $primary-1;
+  border-left: 3px solid $primary-1;
+  border-right: 3px solid $primary-1;
+  background-color: white;
+}
+
+.searchTypeSettings {
+  width: 260px;
+  height: 210px;
+  border: 3px solid $primary-1;
+  margin: 46px auto;
 }
 
 .searchTypeHeader {
   font-size: 15px;
-  font-weight: 400;
-}
-.searchTypeHeader > span {
-  text-transform: uppercase;
-  font-weight: 500;
-  background-image: linear-gradient(135deg, #2da6fd, #09eb99);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.searchTypes {
-  height: 35px;
-}
-.searchTypes > form {
-  display: flex;
-  justify-content: space-evenly;
-}
-.searchTypes > form > div > input {
-  display: none;
-}
-.searchTypes > form > div > label:hover {
-  cursor: pointer;
-}
-
-.searchTypes > form > div > label {
-  font-size: 13px;
-  text-align: center;
-  display: block;
-  padding: 5px 0px;
-  transition: all 0.7s;
-  color: $background-color;
-}
-
-.searchTypes > form > div > input:checked + label {
-  font-size: 17px;
   font-weight: bold;
-  background-image: linear-gradient(135deg, #2da6fd, #09eb99);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: all 0.7s;
+  color: $primary-1;
+  text-align: center;
+  margin-top: 15px;
 }
 
-.searchTypes > form > div {
-  flex-grow: 1;
-  position: relative;
+.searchTypeDefaults {
+  display: flex;
+  height: 175px;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
 }
+// .horizontalBreak {
+//   height: 1px;
+//   width: 80%;
+//   margin: auto;
+//   // background-color: black;
+//   border-top: 1px solid #939393;
+// }
 
-.searchTypes > form > div:not(:first-child)::before {
-  content: '';
-  position: absolute;
-  display: inline-block;
-  width: 1px;
-  height: 30px;
-  background-color: #939393;
-}
-
-.searchTypeSettings {
-  height: 50px;
-  padding: 5px 0px;
-}
-
-.horizontalBreak {
-  height: 1px;
-  width: 80%;
-  margin: auto;
-  // background-color: black;
-  border-top: 1px solid #939393;
-}
-
-.generalSettings {
-  margin-top: 20px;
-}
+// .generalSettings {
+//   margin-top: 20px;
+// }
 
 .toggle input {
   display: none;
 }
-.toggle > label {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 5px;
-}
 .togglePill {
-  cursor: pointer;
   width: 50px;
   height: 25px;
   border-radius: 40px;
-  background-color: #c9c9c9;
+  background-color: $neutral;
   display: inline-block;
   position: relative;
   transition: background-color 0.3s ease-in-out;
@@ -170,64 +153,64 @@ body {
   opacity: 0%;
   transition: opacity 0.3s ease-in-out;
 }
-.toggle > label > input:checked + .togglePill > .togglePillGrad {
+.toggle > input:checked + .togglePill > .togglePillGrad {
   opacity: 100%;
 }
-.toggle > label > input:checked + .togglePill > .toggleSlider {
+.toggle > input:checked + .togglePill > .toggleSlider {
   left: 27px;
 }
 
-.inputWrapper {
-  display: flex;
-  justify-content: flex-end;
-  gap: 5px;
-}
-#maximumMatches {
-  width: 40px;
-  padding: 2px;
-}
+// .inputWrapper {
+//   display: flex;
+//   justify-content: flex-end;
+//   gap: 5px;
+// }
+// #maximumMatches {
+//   width: 40px;
+//   padding: 2px;
+// }
 
-.keybindings {
-  margin: 5px;
-}
-.keybindingsHeader {
-  font-size: 17px;
-  font-weight: bold;
-  background-image: linear-gradient(135deg, #2da6fd, #09eb99);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+// .keybindings {
+//   margin: 5px;
+// }
+// .keybindingsHeader {
+//   font-size: 17px;
+//   font-weight: bold;
+//   background-image: linear-gradient(135deg, #2da6fd, #09eb99);
+//   background-clip: text;
+//   -webkit-background-clip: text;
+//   -webkit-text-fill-color: transparent;
+// }
 
-.command {
-  margin: 5px;
-}
-.command > .cmdName {
-  font-size: 15px;
-  padding: 5px;
-}
-.command > .cmdDesc > div,
-.command > .cmd > div {
-  font-weight: bold;
-}
+// .command {
+//   margin: 5px;
+// }
+// .command > .cmdName {
+//   font-size: 15px;
+//   padding: 5px;
+// }
+// .command > .cmdDesc > div,
+// .command > .cmd > div {
+//   font-weight: bold;
+// }
 
-.cmdArea {
-  display: flex;
-  justify-content: space-between;
-}
+// .cmdArea {
+//   display: flex;
+//   justify-content: space-between;
+// }
 
-.saveBtn {
-  padding: 5px;
-  font-size: 13px;
-  background-color: #09eb99;
-  border-radius: 8px;
-  font-weight: bold;
-  display: inline-block;
-  border: none;
-}
-.saveBtn:hover {
-  cursor: pointer;
-}
-.saveBtn:active {
-  background-color: #2da6fd;
-}
+// .saveBtn {
+//   padding: 5px;
+//   font-size: 13px;
+//   background-color: #09eb99;
+//   border-radius: 8px;
+//   font-weight: bold;
+//   display: inline-block;
+//   border: none;
+// }
+// .saveBtn:hover {
+//   cursor: pointer;
+// }
+// .saveBtn:active {
+//   background-color: #2da6fd;
+// }

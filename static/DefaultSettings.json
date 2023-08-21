@@ -5,46 +5,94 @@
     "default": 0,
     "description": "An index representing the type of search to default to. The order of search types is as follows, 0=Exact Match, 1=Regular Expression, 2=Loose"
   },
-  "ST0CaseSens": {
-    "continuous": false,
-    "possible": [true, false],
-    "default": false,
-    "description": "Represents the case sensitivity of the Exact Match search type",
-    "childSettings": []
+  "ST0": {
+    "caseSens": {
+      "continuous": false,
+      "possible": [true, false],
+      "default": false,
+      "description": "Represents the case sensitivity of the Exact Match search type",
+      "childSettings": []
+    },
+    "autoScroll": {
+      "continuous": false,
+      "possible": [true, false],
+      "default": true,
+      "description": "toggles auto scrolling feature",
+      "childSettings": []
+    },
+    "maximumMatches": {
+      "continuous": false,
+      "possible": [0, 100000],
+      "default": 100,
+      "description": "Represents the maximum amount of matches to search for",
+      "childSettings": []
+    },
+    "selectionColor": {
+      "continuous": true,
+      "possible": ["#000000", "#ffffff"],
+      "default": "#fbff00",
+      "description": "Hexadecimal color for highlighting matches",
+      "childSettings": []
+    }
   },
-  "ST1CaseSens": {
-    "continuous": false,
-    "possible": [true, false],
-    "default": false,
-    "description": "Represents the case sensitivity of the Regular Expression search type",
-    "childSettings": []
+  "ST1": {
+    "caseSens": {
+      "continuous": false,
+      "possible": [true, false],
+      "default": false,
+      "description": "Represents the case sensitivity of the Regular Expression search type",
+      "childSettings": []
+    },
+    "autoScroll": {
+      "continuous": false,
+      "possible": [true, false],
+      "default": true,
+      "description": "toggles auto scrolling feature",
+      "childSettings": []
+    },
+    "maximumMatches": {
+      "continuous": false,
+      "possible": [0, 100000],
+      "default": 100,
+      "description": "Represents the maximum amount of matches to search for",
+      "childSettings": []
+    },
+    "selectionColor": {
+      "continuous": true,
+      "possible": ["#000000", "#ffffff"],
+      "default": "#fbff00",
+      "description": "Hexadecimal color for highlighting matches",
+      "childSettings": []
+    }
   },
-  "ST2PercentMatch": {
-    "continuous": true,
-    "possible": [0, 1],
-    "default": 0.75,
-    "description": "Represents the amount a selection has to match before selecting it for Loose Search.",
-    "childSettings": []
-  },
-  "autoScroll": {
-    "continuous": false,
-    "possible": [true, false],
-    "default": true,
-    "description": "toggles auto scrolling feature",
-    "childSettings": []
-  },
-  "maximumMatches": {
-    "continuous": false,
-    "possible": [0, 100000],
-    "default": 100,
-    "description": "Represents the maximum amount of matches to search for",
-    "childSettings": []
-  },
-  "selectionColor": {
-    "continuous": true,
-    "possible": ["#000000", "#ffffff"],
-    "default": "#fbff00",
-    "description": "Hexadecimal color for highlighting matches",
-    "childSettings": []
+  "ST2": {
+    "percentMatch": {
+      "continuous": true,
+      "possible": [0, 1],
+      "default": 0.75,
+      "description": "Represents the amount a selection has to match before selecting it for Loose Search.",
+      "childSettings": []
+    },
+    "autoScroll": {
+      "continuous": false,
+      "possible": [true, false],
+      "default": true,
+      "description": "Toggles auto scrolling feature",
+      "childSettings": []
+    },
+    "maximumMatches": {
+      "continuous": false,
+      "possible": [0, 100000],
+      "default": 100,
+      "description": "Represents the maximum amount of matches to search for",
+      "childSettings": []
+    },
+    "selectionColor": {
+      "continuous": true,
+      "possible": ["#000000", "#ffffff"],
+      "default": "#fbff00",
+      "description": "Hexadecimal color for highlighting matches",
+      "childSettings": []
+    }
   }
 }
