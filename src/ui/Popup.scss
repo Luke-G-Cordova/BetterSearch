@@ -125,6 +125,12 @@ body {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
+  padding: 0px 10px;
+}
+.searchTypeDefaults > label {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .keybindings {
