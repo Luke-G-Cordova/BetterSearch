@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import * as React from 'react';
-import { default as Toggle } from './Toggle';
 import CustomInput from './CustomInput';
 
 /**
