@@ -77,7 +77,7 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
           <div className="searchTypeDefaults">
             {Object.values(searchTypes[sti]).map((val, i) => (
               <label htmlFor={val.name} key={`${sti}${i}`}>
-                {val.name}:{' '}
+                <span className="searchTypeDefaultName">{val.name}:</span>{' '}
                 <CustomInput
                   type={val.type}
                   id={val.name}
