@@ -119,6 +119,24 @@ export default function DefaultSettings({ DEFAULTS }: DSProps) {
               </a>
             </div>
           </div>
+          <div
+            className="save-wrapper"
+            onClick={(e: any) => {
+              DEFAULTS.searchType.default = sti;
+              DEFAULTS.ST0 = exactMatch;
+              DEFAULTS.ST1 = regularExp;
+              DEFAULTS.ST2 = looseSearch;
+              chrome.storage.sync.set(DEFAULTS);
+            }}
+            onMouseDown={(e: any) => {
+              e.target.style.backgroundColor = '#2da6fd';
+            }}
+            onMouseUp={(e: any) => {
+              e.target.style.backgroundColor = '#09eb99';
+            }}
+          >
+            Save
+          </div>
           <div className="footer">
             <a
               href="#"
