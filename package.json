@@ -43,7 +43,8 @@
     "@webcomponents/webcomponentsjs": "^2.8.0",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-shadow-root": "^6.2.0"
   },
   "browserslist": "> 0.25%, not dead",
   "husky": {
