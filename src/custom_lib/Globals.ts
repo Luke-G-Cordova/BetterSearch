@@ -1,6 +1,3 @@
-import { PopupCard } from './DOM_manipulator/components/PopupCard/PopupCard';
-import { Input } from './DOM_manipulator/components/Input/Input';
-
 /* eslint-disable prefer-const */
 export const Globals: GlobalObject = {
   CUR_INDEX: 0,
@@ -20,6 +17,3 @@ export const Globals: GlobalObject = {
   getGI: (key: string) => Globals.ELEM_KEYS.indexOf(key),
   formWrapper: null,
 };
-
-customElements.define('better-search-popup-card', PopupCard);
-customElements.define('better-search-input', Input);
