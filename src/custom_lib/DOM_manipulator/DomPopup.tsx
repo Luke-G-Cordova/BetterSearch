@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import { queryShadowSelector } from './components/Components';
 import { clearHighlight } from '../highlight/Highlighter';
