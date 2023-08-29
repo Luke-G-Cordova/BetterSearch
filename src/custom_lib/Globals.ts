@@ -17,3 +17,14 @@ export const Globals: GlobalObject = {
   getGI: (key: string) => Globals.ELEM_KEYS.indexOf(key),
   formWrapper: null,
 };
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'better-search-popup-card': React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >;
+    }
+  }
+}
