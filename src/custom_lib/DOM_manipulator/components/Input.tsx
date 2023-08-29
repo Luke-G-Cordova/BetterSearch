@@ -167,7 +167,7 @@ export default function Input() {
     }
   }
   return (
-    <>
+    <div className="BSInputWrapper shadowWrapper">
       <div className="BSInputTopHalf">
         <input
           className="BSMainInputField"
@@ -178,6 +178,17 @@ export default function Input() {
           onInput={() => {
             handleHighlighting();
             searchInput.current.focus();
+          }}
+          onFocus={() => {
+            document.onkeydown = (e) => {
+              if (e.key.toLocaleLowerCase() === 'enter') {
+                e.preventDefault();
+                if (nextOrPrev.current == null) {
+                  nextOrPrev.current = next.current;
+                }
+                nextOrPrev.current.click();
+              }
+            };
           }}
         />
         <span className="BSModifierWrapper">
@@ -401,7 +412,7 @@ export default function Input() {
           </span>
         </span>
       </div>
-    </>
+    </div>
   );
 }
 

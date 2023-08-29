@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import ReactShadowRoot from 'react-shadow-root';
 import Input from './Input';
 import { styles } from './Styles.css';
+import { togglePopup } from '../DomPopup';
+import { Globals } from '../../Globals';
 
 function useDragger(startPos: { x: number; y: number }) {
   const [pos, setPos] = useState(startPos);
@@ -82,10 +84,18 @@ function useDragger(startPos: { x: number; y: number }) {
   }
 
   function cleanup() {
-    document.removeEventListener('mouseup', stopDrag);
-    document.removeEventListener('mousemove', move);
-    document.removeEventListener('scroll', scroll);
-    draggableRefElement.current.removeEventListener('mousedown', drag);
+    if (document.onmouseup != null) {
+      document.removeEventListener('mouseup', stopDrag);
+    }
+    if (document.onmousemove != null) {
+      document.removeEventListener('mousemove', move);
+    }
+    if (document.onscroll != null) {
+      document.removeEventListener('scroll', scroll);
+    }
+    if (document.onmousedown != null) {
+      draggableRefElement.current.removeEventListener('mousedown', drag);
+    }
   }
   useEffect(() => {
     draggableRefElement.current.addEventListener('mousedown', drag);
@@ -99,7 +109,6 @@ function useDragger(startPos: { x: number; y: number }) {
 
 export default function PopupCard() {
   const { pos, draggableRefElement } = useDragger({ x: 20, y: 20 });
-
   return (
     <better-search-popup-card
       style={{ left: pos.x + 'px', top: pos.y + 'px' }}
@@ -111,7 +120,11 @@ export default function PopupCard() {
           <span id="BS-input-button" className="BSButton BSControlButton">
             NEW
           </span>
-          <span id="BS-exit-button" className="BSButton BSControlButton">
+          <span
+            id="BS-exit-button"
+            className="BSButton BSControlButton"
+            onClick={() => togglePopup()}
+          >
             X
           </span>
         </div>
