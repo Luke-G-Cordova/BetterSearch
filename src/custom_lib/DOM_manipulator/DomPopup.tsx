@@ -10,7 +10,7 @@ let container: HTMLElement;
 let root: Root | null;
 
 export const togglePopup = () => {
-  if (!container) {
+  if (container == null) {
     container = document.createElement('better-search-popup-wrapper');
     container.style.position = 'relative';
     container.style.width = '0';
@@ -24,6 +24,7 @@ export const togglePopup = () => {
     root.unmount();
     container.remove();
     container = null;
+    clearHighlight(Globals.ELEM_KEYS);
     // closePopup();
   }
 };
