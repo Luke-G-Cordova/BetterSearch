@@ -9,27 +9,13 @@ import PopupCard from './components/PopupCard';
 let container: HTMLElement;
 let root: Root | null;
 
-class BetterSearchPopupCard extends HTMLElement {}
-class BetterSearchPopupWrapper extends HTMLElement {}
-
 export const togglePopup = () => {
-  if (!customElements.get('better-search-popup-card')) {
-    customElements.define('better-search-popup-card', BetterSearchPopupCard);
-  }
-  if (!customElements.get('better-search-popup-wrapper')) {
-    customElements.define(
-      'better-search-popup-wrapper',
-      BetterSearchPopupWrapper,
-    );
-  }
   if (!container) {
     container = document.createElement('better-search-popup-wrapper');
     container.style.position = 'relative';
     container.style.width = '0';
     container.style.height = '0';
-    const popupCard = document.createElement('better-search-popup-card');
-    popupCard.id = 'BetterSearchRoot';
-    container.appendChild(popupCard);
+    container.id = 'BetterSearchRoot';
     document.body.insertBefore(container, document.body.firstChild);
     root = createRoot(document.getElementById('BetterSearchRoot'));
     root.render(<PopupCard />);
