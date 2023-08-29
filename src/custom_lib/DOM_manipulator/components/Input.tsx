@@ -15,7 +15,7 @@ enum SearchType {
 }
 
 export default function Input() {
-  const [preserveCase, setPreserveCase] = useState(false);
+  const [preserveCase, setPreserveCase] = useState(true);
   const [searchType, setSearchType] = useState<SearchType>(
     SearchType.ExactMatch,
   );
@@ -25,89 +25,14 @@ export default function Input() {
     `regex-key-${Math.random().toString(36).substring(2, 5)}`,
   );
   const searchInput = useRef<HTMLInputElement>();
-
   const [currentColor, setCurrentColor] = useState('#FFFF00');
-
-  /**
-   * the hex code of the current color for the selection
-   */
-  const [colorFacts, setColorFacts] = useState();
-
-  /**
-   * maximum amount of selections at a time
-   */
   const [maxLimit, setMaxLimit] = useState(100);
-
-  /**
-   * the input that determines maxLimit
-   */
-  const [maxMatchLimit, setMaxMatchLimit] = useState();
-
-  /**
-   * the button to go to the next match in the selection
-   */
   const next = useRef<HTMLElement>();
-
-  /**
-   * the button to go to the previous match in the selection
-   */
   const prev = useRef<HTMLElement>();
-
-  /**
-   * the element that represents the numerator to show which match
-   * is currently focused
-   */
   const countNum = useRef<HTMLElement>();
-
-  /**
-   * the element that represents the denominator to show which match
-   * is currently focused
-   */
   const countDen = useRef<HTMLElement>();
 
-  /**
-   * the element that determines preserveCase
-   */
-  const [caseSensitive, setCaseSensitive] = useState();
-
-  /**
-   * the element that determines preserveRegex
-   */
-  const [isRegex, setIsRegex] = useState();
-
-  /**
-   * the element that determines preserveLevenshtein
-   */
-  const [levenshtein, setLevenshtein] = useState();
-
-  const [levenshteinSlider, setLevenshteinSlider] = useState();
-
-  const [levenshteinSliderValue, setLevenshteinSliderValue] = useState();
-
-  const [percentMatch, setPercentMatch] = useState(1);
-
-  const [exactMatch, setExactMatch] = useState();
-
-  /**
-   * the element that determines preserveScroll
-   */
-  const [shouldScroll, setShouldScroll] = useState();
-
-  /**
-   * the element that deletes this
-   */
-  const [minus, setMinus] = useState();
-
-  const [inputWrapper, setInputWrapper] = useState();
-
-  const [colorCopyButton, setColorCopyButton] = useState();
-
-  const [colorCopyTooltip, setColorCopyTooltip] = useState();
-
-  /**
-   * the element that copies the current selection to the clipboard
-   */
-  const [copy, setCopy] = useState();
+  const [percentMatch, setPercentMatch] = useState(0.75);
 
   useEffect(() => {
     searchInput.current.focus();
@@ -264,7 +189,14 @@ export default function Input() {
                   className="BSModifierInput"
                   id="BS-exact-match"
                   type="checkbox"
-                  defaultChecked
+                  checked={searchType === SearchType.ExactMatch}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setSearchType(SearchType.ExactMatch);
+                    }
+                    handleHighlighting();
+                    searchInput.current.focus();
+                  }}
                 />
                 <label htmlFor="BS-exact-match">Exact match</label>
               </div>
@@ -273,7 +205,14 @@ export default function Input() {
                   className="BSModifierInput"
                   id="BS-is-regex"
                   type="checkbox"
-                  defaultChecked={false}
+                  checked={searchType === SearchType.RegularExpression}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setSearchType(SearchType.RegularExpression);
+                    }
+                    handleHighlighting();
+                    searchInput.current.focus();
+                  }}
                 />
                 <label htmlFor="BS-is-regex">Regular expression</label>
               </div>
@@ -282,7 +221,14 @@ export default function Input() {
                   className="BSModifierInput"
                   id="BS-levenshtein"
                   type="checkbox"
-                  defaultChecked={false}
+                  checked={searchType === SearchType.LooseSearch}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setSearchType(SearchType.LooseSearch);
+                    }
+                    handleHighlighting();
+                    searchInput.current.focus();
+                  }}
                 />
                 <label htmlFor="BS-levenshtein">Loose search</label>
               </div>
@@ -293,13 +239,20 @@ export default function Input() {
                   min="0"
                   max="1"
                   step=".01"
+                  defaultValue={percentMatch}
                   style={{ maxWidth: '70%' }}
+                  onInput={(e) => {
+                    e.preventDefault();
+                    setPercentMatch(
+                      Number((e.target as HTMLInputElement).value),
+                    );
+                  }}
                 />
                 <span
                   id="BS-levenshtein-slider-value"
                   style={{ float: 'right' }}
                 >
-                  0.75
+                  {percentMatch}
                 </span>
               </div>
               <div className="BSButton BSModifierButton">
@@ -307,7 +260,7 @@ export default function Input() {
                   className="BSModifierInput"
                   id="BS-case-sensitive"
                   type="checkbox"
-                  onChange={(e) => setPreserveCase(e.target.checked)}
+                  onChange={(e) => setPreserveCase(!e.target.checked)}
                   defaultChecked={false}
                 />
                 <label htmlFor="BS-case-sensitive">Case sensitive</label>
@@ -320,15 +273,15 @@ export default function Input() {
                   defaultChecked
                   onChange={(e) => setPScroll(e.target.checked)}
                 />
-                <label htmlFor="BS-should-scroll">Stop auto scroll</label>
+                <label htmlFor="BS-should-scroll">Auto scroll</label>
               </div>
               <div className="BSButton BSModifierButton BSMaxMatchLimitWrapper">
                 <input
                   className="BSModifierInput BSMaxMatchLimit"
                   id="BS-max-matches"
                   type="number"
-                  defaultValue="100"
-                  onChange={(e) => setMaxLimit(Number(e.target.value) | 100)}
+                  defaultValue={maxLimit}
+                  onChange={(e) => setMaxLimit(Number(e.target.value))}
                 />
                 <div>Maximum matches</div>
               </div>
@@ -337,13 +290,18 @@ export default function Input() {
                   className="BSModifierInput BSColorPicker"
                   id="BS-color-input"
                   type="color"
-                  defaultValue="#FFFF00"
+                  defaultValue={currentColor}
                   onChange={(e) => setCurrentColor(e.target.value)}
                 />
                 <div>
                   Selection color{' '}
-                  <span className="BSButton BSColorFacts">
-                    <span>#FBFF00</span>{' '}
+                  <span
+                    className="BSButton BSColorFacts"
+                    onClick={() => {
+                      navigator.clipboard.writeText(currentColor);
+                    }}
+                  >
+                    <span>{currentColor}</span>
                     <span className="BSCopyButton BSColorCopyButton">
                       ⛶
                       <div className="BSToolTip BSColorCopyToolTip">Copied</div>
