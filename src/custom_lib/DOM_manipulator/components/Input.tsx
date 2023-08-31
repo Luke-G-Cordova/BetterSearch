@@ -390,7 +390,25 @@ export default function Input() {
           ⇒
         </span>
         <span className="BSButton BSActionButton BSDeleteButton">-</span>
-        <span className="BSButton BSActionButton BSCopyButton">⛶</span>
+        <span
+          className="BSButton BSActionButton BSCopyButton"
+          onClick={() => {
+            const GI = Globals.getGI(key);
+            if (Globals.MY_HIGHLIGHTS[GI]) {
+              let selection = '';
+              Globals.MY_HIGHLIGHTS[GI].elements.forEach((elem: any) => {
+                for (let i = 0; i < elem.length; i++) {
+                  selection += elem[i].innerText;
+                }
+                selection += '\n';
+              });
+              navigator.clipboard.writeText(selection);
+            }
+            searchInput.current.focus();
+          }}
+        >
+          ⛶
+        </span>
         <span
           style={{
             flexGrow: '1',
