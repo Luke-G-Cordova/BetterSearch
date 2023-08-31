@@ -18,7 +18,7 @@ export const togglePopup = () => {
     container.id = 'BetterSearchRoot';
     document.body.insertBefore(container, document.body.firstChild);
     root = createRoot(document.getElementById('BetterSearchRoot'));
-    root.render(<PopupCard />);
+    root.render(<PopupCard detectBorder={20} />);
     // openPopup();
   } else {
     root.unmount();

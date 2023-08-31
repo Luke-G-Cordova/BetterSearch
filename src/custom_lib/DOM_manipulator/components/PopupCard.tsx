@@ -5,7 +5,10 @@ import { styles } from './Styles.css';
 import { togglePopup } from '../DomPopup';
 import { Globals } from '../../Globals';
 
-function useDragger(startPos: { x: number; y: number }) {
+function useDragger(startPos: { x: number; y: number; detectBorder?: number }) {
+  if (startPos.detectBorder == null) {
+    startPos.detectBorder = Math.max(startPos.x, startPos.y);
+  }
   const [pos, setPos] = useState(startPos);
   const stPos = useRef(startPos);
   const endPos = useRef(startPos);
@@ -15,7 +18,6 @@ function useDragger(startPos: { x: number; y: number }) {
     x: window.scrollX,
     y: window.scrollY,
   });
-  const leftBorderSize = 50;
 
   function stopDrag(e: any) {
     e.preventDefault();
@@ -33,15 +35,15 @@ function useDragger(startPos: { x: number; y: number }) {
     if (
       tempPos.current.x +
         draggableRefElement.current.clientWidth +
-        leftBorderSize >
+        startPos.detectBorder >
       window.innerWidth + window.scrollX
     ) {
       tempPos.current.x =
         window.innerWidth -
         draggableRefElement.current.clientWidth -
-        leftBorderSize;
-    } else if (tempPos.current.x - leftBorderSize < 0) {
-      tempPos.current.x = 0 + leftBorderSize;
+        startPos.detectBorder;
+    } else if (tempPos.current.x - startPos.detectBorder < 0) {
+      tempPos.current.x = 0 + startPos.detectBorder;
     } else {
       stPos.current.x = e.clientX;
     }
@@ -49,16 +51,16 @@ function useDragger(startPos: { x: number; y: number }) {
     if (
       tempPos.current.y +
         draggableRefElement.current.clientHeight +
-        leftBorderSize >
+        startPos.detectBorder >
       window.innerHeight + window.scrollY
     ) {
       tempPos.current.y =
         window.innerHeight +
         window.scrollY -
         draggableRefElement.current.clientHeight -
-        leftBorderSize;
-    } else if (tempPos.current.y - leftBorderSize < 0 + window.scrollY) {
-      tempPos.current.y = 0 + leftBorderSize + window.scrollY;
+        startPos.detectBorder;
+    } else if (tempPos.current.y - startPos.detectBorder < 0 + window.scrollY) {
+      tempPos.current.y = 0 + startPos.detectBorder + window.scrollY;
     } else {
       stPos.current.y = e.clientY;
     }
@@ -107,8 +109,33 @@ function useDragger(startPos: { x: number; y: number }) {
   return { pos, draggableRefElement };
 }
 
-export default function PopupCard() {
-  const { pos, draggableRefElement } = useDragger({ x: 20, y: 20 });
+interface PopupCardPropsPos {
+  startX: number;
+  startY: number;
+  detectBorder?: number;
+}
+interface PopupCardPropsDetect {
+  startX?: number;
+  startY?: number;
+  detectBorder: number;
+}
+export default function PopupCard({
+  startX,
+  startY,
+  detectBorder,
+}: PopupCardPropsPos | PopupCardPropsDetect) {
+  if (startX == null && detectBorder == null) {
+    throw new Error('startX or detectBorder must be initialized');
+  } else if (startX == null) {
+    startX = startY = detectBorder;
+  } else if (detectBorder == null) {
+    detectBorder = startY = startX;
+  }
+  const { pos, draggableRefElement } = useDragger({
+    x: startX + window.scrollX,
+    y: startY + window.scrollY,
+    detectBorder,
+  });
   return (
     <better-search-popup-card
       style={{ left: pos.x + 'px', top: pos.y + 'px' }}
