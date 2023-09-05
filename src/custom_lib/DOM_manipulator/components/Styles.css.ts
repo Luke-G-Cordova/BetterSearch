@@ -11,7 +11,7 @@ export const styles = /*css*/ `
   }
 
   /* custom break */
-  BS-break {
+  .BS-break {
     display: block;
     height: 0.5px;
     margin: 0 5% 2% 5%;
