@@ -13,8 +13,10 @@ enum SearchType {
   RegularExpression,
   LooseSearch,
 }
-
-export default function Input() {
+interface InputProps {
+  nonDraggableRefElement: (ref: HTMLElement) => void;
+}
+export default function Input({ nonDraggableRefElement }: InputProps) {
   const [preserveCase, setPreserveCase] = useState(true);
   const [searchType, setSearchType] = useState<SearchType>(
     SearchType.ExactMatch,
@@ -168,7 +170,7 @@ export default function Input() {
   }
   return (
     <div className="BSInputWrapper shadowWrapper">
-      <div className="BSInputTopHalf">
+      <div className="BSInputTopHalf" ref={nonDraggableRefElement}>
         <input
           className="BSMainInputField"
           type="text"
@@ -327,7 +329,10 @@ export default function Input() {
       <div className="BSInputBottomHalf">
         <span
           className="BSButton BSActionButton BSPrevButton"
-          ref={(ref) => (prev.current = ref)}
+          ref={(ref) => {
+            prev.current = ref;
+            nonDraggableRefElement(ref);
+          }}
           onClick={(e) => {
             e.preventDefault();
             nextOrPrev.current = prev.current;
@@ -359,7 +364,10 @@ export default function Input() {
         </span>
         <span
           className="BSButton BSActionButton BSNextButton"
-          ref={(ref) => (next.current = ref)}
+          ref={(ref) => {
+            next.current = ref;
+            nonDraggableRefElement(ref);
+          }}
           onClick={(e) => {
             e.preventDefault();
             nextOrPrev.current = next.current;
@@ -389,9 +397,15 @@ export default function Input() {
         >
           ⇒
         </span>
-        <span className="BSButton BSActionButton BSDeleteButton">-</span>
+        <span
+          className="BSButton BSActionButton BSDeleteButton"
+          ref={nonDraggableRefElement}
+        >
+          -
+        </span>
         <span
           className="BSButton BSActionButton BSCopyButton"
+          ref={nonDraggableRefElement}
           onClick={() => {
             const GI = Globals.getGI(key);
             if (Globals.MY_HIGHLIGHTS[GI]) {

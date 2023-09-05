@@ -9,4 +9,5 @@ better-search-popup-card {
   font-family: sans-serif;
   font-size: 15px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  cursor: grab;
 }
