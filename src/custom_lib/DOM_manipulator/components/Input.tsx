@@ -183,14 +183,19 @@ export default function Input({ nonDraggableRefElement }: InputProps) {
           }}
           onFocus={() => {
             document.onkeydown = (e) => {
-              if (e.key.toLocaleLowerCase() === 'enter') {
+              if (e.key.toLocaleLowerCase() === 'enter' && e.shiftKey) {
                 e.preventDefault();
-                if (nextOrPrev.current == null) {
-                  nextOrPrev.current = next.current;
-                }
-                nextOrPrev.current.click();
+                prev.current.click();
+              } else if (e.key.toLocaleLowerCase() === 'enter') {
+                e.preventDefault();
+                next.current.click();
               }
             };
+          }}
+          onBlur={() => {
+            if (document.onkeydown != null) {
+              document.onkeydown = null;
+            }
           }}
         />
         <span className="BSModifierWrapper">
