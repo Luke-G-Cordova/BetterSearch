@@ -56,6 +56,7 @@ export default function PopupCard({
             X
           </span>
         </div>
+        <div className="BS-break"></div>
         <div id="BS-form-wrapper">
           <Input nonDraggableRefElement={makeChildNonDraggable} />
         </div>
