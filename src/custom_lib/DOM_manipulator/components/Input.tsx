@@ -2,11 +2,13 @@ import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { Globals } from '../../Globals';
 import { highlightMe, nextMatch, invertColor, SearchType } from './util';
+import { clearHighlight } from '../../highlight/Highlighter';
 
 interface InputProps {
+  ariaKey: string;
   nonDraggableRefElement: (ref: HTMLElement) => void;
 }
-export default function Input({ nonDraggableRefElement }: InputProps) {
+export default function Input({ ariaKey, nonDraggableRefElement }: InputProps) {
   const [preserveCase, setPreserveCase] = useState(true);
   const [searchType, setSearchType] = useState<SearchType>(
     SearchType.ExactMatch,
@@ -67,7 +69,7 @@ export default function Input({ nonDraggableRefElement }: InputProps) {
     }
   }
   return (
-    <div className="BSInputWrapper shadowWrapper">
+    <div aria-label={ariaKey} className="BSInputWrapper shadowWrapper">
       <div className="BSInputTopHalf" ref={nonDraggableRefElement}>
         <input
           className="BSMainInputField"
@@ -303,6 +305,7 @@ export default function Input({ nonDraggableRefElement }: InputProps) {
         <span
           className="BSButton BSActionButton BSDeleteButton"
           ref={nonDraggableRefElement}
+          onClick={() => clearHighlight(key)}
         >
           -
         </span>
