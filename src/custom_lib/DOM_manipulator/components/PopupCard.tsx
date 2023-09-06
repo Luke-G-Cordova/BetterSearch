@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import ReactShadowRoot from 'react-shadow-root';
 import Input from './Input';
-import { styles } from './Styles.css';
+import { styles } from '../Styles.css';
 import { togglePopup } from '../DomPopup';
-import useDragger from './dragger';
+import useDragger from '../utils/dragger';
 
 interface PopupCardPropsPos {
   startX: number;
@@ -116,7 +116,6 @@ export default function PopupCard({
           }}
         >
           {...inputs}
-          {/* <Input nonDraggableRefElement={makeChildNonDraggable} /> */}
         </div>
       </ReactShadowRoot>
     </better-search-popup-card>
