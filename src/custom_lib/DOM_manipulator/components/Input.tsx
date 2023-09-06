@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { Globals } from '../../Globals';
-import { highlightMe, nextMatch, invertColor, SearchType } from './util';
+import { highlightMe, nextMatch, invertColor, SearchType } from '../utils/util';
 import { clearHighlight } from '../../highlight/Highlighter';
 
 interface InputProps {
