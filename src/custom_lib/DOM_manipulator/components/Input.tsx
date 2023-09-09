@@ -7,26 +7,41 @@ import { clearHighlight } from '../../highlight/Highlighter';
 interface InputProps {
   ariaKey: string;
   nonDraggableRefElement: (ref: HTMLElement) => void;
+  defaults: DefaultSettings;
 }
-export default function Input({ ariaKey, nonDraggableRefElement }: InputProps) {
-  const [preserveCase, setPreserveCase] = useState(true);
+export default function Input({
+  ariaKey,
+  nonDraggableRefElement,
+  defaults,
+}: InputProps) {
   const [searchType, setSearchType] = useState<SearchType>(
-    SearchType.ExactMatch,
+    defaults.searchType.default,
   );
-  const [pScroll, setPScroll] = useState(true);
+  const [preserveCase, setPreserveCase] = useState<boolean>(
+    getGroup(defaults).caseSens,
+  );
+  const [pScroll, setPScroll] = useState<boolean>(
+    getGroup(defaults).autoScroll,
+  );
+  const [maxLimit, setMaxLimit] = useState<number>(
+    getGroup(defaults).maximumMatches,
+  );
+  const [currentColor, setCurrentColor] = useState<string>(
+    getGroup(defaults).selectionColor,
+  );
+  const [percentMatch, setPercentMatch] = useState(
+    getGroup(defaults).percentMatch,
+  );
+
   const nextOrPrev = useRef<HTMLElement>();
   const [key, setKey] = useState(
     `regex-key-${Math.random().toString(36).substring(2, 5)}`,
   );
   const searchInput = useRef<HTMLInputElement>();
-  const [currentColor, setCurrentColor] = useState('#FFFF00');
-  const [maxLimit, setMaxLimit] = useState(100);
   const next = useRef<HTMLElement>();
   const prev = useRef<HTMLElement>();
   const countNum = useRef<HTMLElement>();
   const countDen = useRef<HTMLElement>();
-
-  const [percentMatch, setPercentMatch] = useState(0.75);
 
   useEffect(() => {
     searchInput.current.focus();
@@ -179,7 +194,7 @@ export default function Input({ ariaKey, nonDraggableRefElement }: InputProps) {
                   id="BS-case-sensitive"
                   type="checkbox"
                   onChange={(e) => setPreserveCase(!e.target.checked)}
-                  defaultChecked={false}
+                  defaultChecked={preserveCase}
                 />
                 <label htmlFor="BS-case-sensitive">Case sensitive</label>
               </div>
@@ -188,7 +203,7 @@ export default function Input({ ariaKey, nonDraggableRefElement }: InputProps) {
                   className="BSModifierInput"
                   id="BS-should-scroll"
                   type="checkbox"
-                  defaultChecked
+                  defaultChecked={pScroll}
                   onChange={(e) => setPScroll(e.target.checked)}
                 />
                 <label htmlFor="BS-should-scroll">Auto scroll</label>
@@ -352,4 +367,34 @@ export default function Input({ ariaKey, nonDraggableRefElement }: InputProps) {
       </div>
     </div>
   );
+}
+
+function getGroup(defaults: DefaultSettings) {
+  const retGroup = {
+    autoScroll: true,
+    maximumMatches: 100,
+    selectionColor: '#FBFF00',
+    caseSens: false,
+    percentMatch: 0.75,
+  };
+  switch (defaults.searchType.default) {
+    case SearchType.ExactMatch:
+      retGroup.autoScroll = defaults.ST0.autoScroll.default;
+      retGroup.maximumMatches = defaults.ST0.maximumMatches.default;
+      retGroup.selectionColor = defaults.ST0.selectionColor.default;
+      retGroup.caseSens = defaults.ST0.caseSens.default;
+      return retGroup;
+    case SearchType.RegularExpression:
+      retGroup.autoScroll = defaults.ST1.autoScroll.default;
+      retGroup.maximumMatches = defaults.ST1.maximumMatches.default;
+      retGroup.selectionColor = defaults.ST1.selectionColor.default;
+      retGroup.caseSens = defaults.ST1.caseSens.default;
+      return retGroup;
+    case SearchType.LooseSearch:
+      retGroup.autoScroll = defaults.ST2.autoScroll.default;
+      retGroup.maximumMatches = defaults.ST2.maximumMatches.default;
+      retGroup.selectionColor = defaults.ST2.selectionColor.default;
+      retGroup.percentMatch = defaults.ST2.percentMatch.default;
+      return retGroup;
+  }
 }

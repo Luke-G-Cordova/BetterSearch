@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function CustomInput(
   props: React.DetailedHTMLProps<
@@ -6,6 +6,7 @@ export default function CustomInput(
     HTMLInputElement
   >,
 ) {
+  const [val, setVal] = useState(props.defaultValue);
   let inputProps;
   switch (props.type) {
     case 'toggle':
@@ -23,8 +24,23 @@ export default function CustomInput(
       inputProps = Object.assign({}, props, { type: 'color' });
       return <input className="colorInput" {...inputProps} />;
     case 'range':
-      inputProps = Object.assign({}, props, { min: 0, max: 1, step: 0.01 });
-      return <input className="rangeInput" {...inputProps} />;
+      inputProps = Object.assign({}, props, {
+        min: 0,
+        max: 1,
+        step: 0.01,
+      });
+      return (
+        <>
+          <input
+            className="rangeInput"
+            onInput={(e) => {
+              setVal(Number((e.target as HTMLInputElement).value));
+            }}
+            {...inputProps}
+          />
+          <span>{val}</span>
+        </>
+      );
     default:
       return <input {...props} />;
   }

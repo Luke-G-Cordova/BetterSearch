@@ -7,7 +7,7 @@ import PopupCard from './components/PopupCard';
 let container: HTMLElement;
 let root: Root | null;
 
-export const togglePopup = () => {
+export const togglePopup = async () => {
   if (container == null) {
     container = document.createElement('better-search-popup-wrapper');
     container.style.position = 'relative';
@@ -16,7 +16,14 @@ export const togglePopup = () => {
     container.id = 'BetterSearchRoot';
     document.body.insertBefore(container, document.body.firstChild);
     root = createRoot(document.getElementById('BetterSearchRoot'));
-    root.render(<PopupCard detectBorder={20} />);
+    root.render(
+      <PopupCard
+        defaults={await chrome.runtime.sendMessage({
+          defaultSettingsRequest: true,
+        })}
+        detectBorder={20}
+      />,
+    );
   } else {
     root.unmount();
     container.remove();
