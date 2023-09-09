@@ -19,6 +19,12 @@ chrome.storage.onChanged.addListener(async (changes) => {
   }
 });
 
+// load defaults on startup
+chrome.runtime.onStartup.addListener(async () => {
+  DEFAULTS = (await getStorageData()) as DefaultSettings;
+  console.log('extension started successfully');
+});
+
 /**
  * sends data to different parts of the extension
  * @param data object to be sent
