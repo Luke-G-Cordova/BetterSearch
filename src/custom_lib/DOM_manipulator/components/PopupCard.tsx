@@ -9,16 +9,19 @@ interface PopupCardPropsPos {
   startX: number;
   startY: number;
   detectBorder?: number;
+  defaults: DefaultSettings;
 }
 interface PopupCardPropsDetect {
   startX?: number;
   startY?: number;
   detectBorder: number;
+  defaults: DefaultSettings;
 }
 export default function PopupCard({
   startX,
   startY,
   detectBorder,
+  defaults,
 }: PopupCardPropsPos | PopupCardPropsDetect) {
   if (startX == null && detectBorder == null) {
     throw new Error('startX or detectBorder must be initialized');
@@ -35,6 +38,7 @@ export default function PopupCard({
   const inputKeys = useRef(1);
   const [inputs, setInputs] = useState([
     <Input
+      defaults={defaults}
       ariaKey={0 + ''}
       key={0}
       nonDraggableRefElement={makeChildNonDraggable}
@@ -57,6 +61,7 @@ export default function PopupCard({
                 if (arr.length < 6) {
                   arr.push(
                     <Input
+                      defaults={defaults}
                       ariaKey={inputKeys.current + ''}
                       key={inputKeys.current}
                       nonDraggableRefElement={makeChildNonDraggable}
@@ -103,6 +108,7 @@ export default function PopupCard({
                 if (arr.length === 0) {
                   arr.push(
                     <Input
+                      defaults={defaults}
                       ariaKey={inputKeys.current + ''}
                       key={inputKeys.current}
                       nonDraggableRefElement={makeChildNonDraggable}
