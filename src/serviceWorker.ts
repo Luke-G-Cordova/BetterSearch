@@ -9,6 +9,12 @@ chrome.runtime.onInstalled.addListener(async () => {
   console.log('extension installed successfully');
 });
 
+// load defaults on startup
+chrome.runtime.onStartup.addListener(async () => {
+  DEFAULTS = (await getStorageData()) as DefaultSettings;
+  console.log('extension started successfully');
+});
+
 // Log storage changes, might be safely removed
 chrome.storage.onChanged.addListener(async (changes) => {
   DEFAULTS = (await getStorageData()) as DefaultSettings;
@@ -17,12 +23,6 @@ chrome.storage.onChanged.addListener(async (changes) => {
       `"${key}" changed from "${value.oldValue}" to "${value.newValue}"`,
     );
   }
-});
-
-// load defaults on startup
-chrome.runtime.onStartup.addListener(async () => {
-  DEFAULTS = (await getStorageData()) as DefaultSettings;
-  console.log('extension started successfully');
 });
 
 /**
@@ -48,12 +48,16 @@ const sendData = (data: communicationInfo) => {
 /**
  * these send the open_popup event to the content scripts
  */
-chrome.commands.onCommand.addListener((command) => {
+chrome.commands.onCommand.addListener(async (command) => {
   if (
     command === 'toggle_popup' ||
     command === 'close_popup' ||
     command === 'open_popup'
   ) {
+    if (DEFAULTS == null) {
+      console.log('defaults restored');
+      DEFAULTS = (await getStorageData()) as DefaultSettings;
+    }
     const sendObj: communicationInfo = {
       from: 'background',
       subject: command,
