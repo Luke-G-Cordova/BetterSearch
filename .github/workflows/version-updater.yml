@@ -2,11 +2,11 @@ name: version-updater
 run-name: ${{ github.actor }} updating version
 on:
   pull_request:
-    types: [opened]
+    types: [opened, edited]
     branches:
       - master
 jobs:
-  check-previous-version:
+  update-version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
