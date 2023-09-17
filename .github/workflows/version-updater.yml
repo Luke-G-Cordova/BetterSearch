@@ -1,0 +1,16 @@
+name: version-updater
+run-name: ${{ github.actor }} updating version
+on:
+  pull_request:
+    types: [opened]
+    branches:
+      - master
+jobs:
+  check-previous-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: ./version_updater.bash 0
