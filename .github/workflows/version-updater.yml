@@ -13,4 +13,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
+      - run: chmod u+x version-updater.bash
       - run: ./version_updater.bash 0
