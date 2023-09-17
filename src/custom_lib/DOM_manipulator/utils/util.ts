@@ -5,6 +5,7 @@ import {
   highlightRegExp,
   highlightLevenshtein,
 } from '../../highlight/Highlighter';
+import { getText } from '../utils/pdf';
 
 export enum SearchType {
   ExactMatch,
@@ -31,6 +32,7 @@ export function highlightMe(
   },
   createTag: (match: string, sameMatchID: number, color: string) => HTMLElement,
 ) {
+  getText(location.href);
   clearHighlight(key);
   if (searchTerm !== '' && Globals.DEF_REJECTS.indexOf(searchTerm) === -1) {
     options = Object.assign(

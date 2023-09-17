@@ -10,7 +10,7 @@
   "content_scripts": [
     {
       "matches": ["*://*/*"],
-      "js": ["./webcomponents_bundle.js", "contentScript.js"],
+      "js": ["contentScript.js", "./webcomponents_bundle.js"],
       "css": ["./contentScript.css"]
     }
   ],
