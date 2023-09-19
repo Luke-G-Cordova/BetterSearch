@@ -4,8 +4,6 @@ on:
   workflow_dispatch:
   pull_request:
     types: [opened, edited]
-    branches:
-      - master
 jobs:
   update-version:
     runs-on: ubuntu-latest
