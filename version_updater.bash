@@ -19,6 +19,7 @@ function set_current_version(){
 
   if [[ $pj_first_digits -eq $m_first_digits ]] && [[ $pj_middle_digits -eq $m_middle_digits ]] && [[ $pj_last_digits -eq $m_last_digits ]]; then
     export CURRENT_VERSION=$pj_first_digits.$pj_middle_digits.$pj_last_digits
+    echo $CURRENT_VERSION
   else
     echo "Error: package.json and static/manifest.json have mismatched versions"
     exit 1
