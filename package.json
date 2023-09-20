@@ -1,6 +1,6 @@
 {
   "name": "better-search",
-  "version": "0.0.34",
+  "version": "0.0.33",
   "description": "Functionality for searching through html",
   "scripts": {
     "start": "webpack --watch --config webpack.dev.js",
