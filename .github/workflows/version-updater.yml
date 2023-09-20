@@ -13,7 +13,7 @@ jobs:
         with:
           ref: master
       - name: set current version
-        run: bash ./version_updater.bash set_current_version
+        run: echo "CURRENT_VERSION=$(bash ./version_updater.bash set_current_version)" >> $GITHUB_ENV
       - name: checkout original branch ${{ github.sha }}
         uses: actions/checkout@v3
         with:
