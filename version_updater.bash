@@ -46,37 +46,35 @@ function update(){
 
   package_json_version=$pj_first_digits.$pj_middle_digits.$pj_last_digits
 
-  if [[ ! $CURRENT_VERSION == $package_json_version ]]; then
-    echo "Error: branch $CURRENT_REF_NAME version is not equal to master. Master version = $CURRENT_VERSION --- $CURRENT_REF_NAME version = $package_json_version . Pull master to update. " 
-    exit 1
-  fi
-
   if [[ ! $pj_first_digits -eq $m_first_digits ]] || [[ ! $pj_middle_digits -eq $m_middle_digits ]] || [[ !  $pj_last_digits -eq $m_last_digits ]]; then
     echo "Error: package.json and static/manifest.json have mismatched versions"
     exit 1
   fi
 
-  # 0 for patch update, 1 for minor update, 2 for major update
-  if [[ $update_level == 0 ]]; then
-    new_version_string="$pj_first_digits.$pj_middle_digits.$(($pj_last_digits+1))"
-    npm version patch --no-git-tag-version
-  elif [[ $update_level == 1 ]]; then
-    new_version_string="$pj_first_digits.$(($pj_middle_digits+1)).0"
-    npm version minor --no-git-tag-version
-  elif [[ $update_level == 2 ]]; then
-    new_version_string="$(($pj_first_digits+1)).0.0"
-    npm version major --no-git-tag-version
-  else
-    echo "Error: argument should be one of 0 for patch update, 1 for minor update, 2 for major update"
-    exit 1;
+  if [[ ! $CURRENT_VERSION == $package_json_version ]]; then
+    echo "Error: branch $CURRENT_REF_NAME version is not equal to master. Master version = $CURRENT_VERSION --- $CURRENT_REF_NAME version = $package_json_version . Pull master to update. " 
+    exit 1
   fi
 
-  # update manifest json
-  jq ".version |= \"$new_version_string\"" ./static/manifest.json > ./static/manifest_tmp.json && mv ./static/manifest_tmp.json ./static/manifest.json
+  if [[ ! $DRY_RUN ]]; then
+    # 0 for patch update, 1 for minor update, 2 for major update
+    if [[ $update_level == 0 ]]; then
+      new_version_string="$pj_first_digits.$pj_middle_digits.$(($pj_last_digits+1))"
+      npm version patch --no-git-tag-version
+    elif [[ $update_level == 1 ]]; then
+      new_version_string="$pj_first_digits.$(($pj_middle_digits+1)).0"
+      npm version minor --no-git-tag-version
+    elif [[ $update_level == 2 ]]; then
+      new_version_string="$(($pj_first_digits+1)).0.0"
+      npm version major --no-git-tag-version
+    else
+      echo "Error: argument should be one of 0 for patch update, 1 for minor update, 2 for major update"
+      exit 1;
+    fi
 
-  # git add package-lock.json package.json static/manifest.json
-  # git commit -m "version update to $new_version_string"
-  # git push
+    # update manifest json
+    jq ".version |= \"$new_version_string\"" ./static/manifest.json > ./static/manifest_tmp.json && mv ./static/manifest_tmp.json ./static/manifest.json
+  fi
 }
 
 $1 $2
