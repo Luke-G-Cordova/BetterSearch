@@ -8,9 +8,22 @@ jobs:
   update-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: checkout master step
+        uses: actions/checkout@v3
         with:
-          node-version: '18'
-      - run: chmod u+x version-updater.bash
-      - run: ./version_updater.bash 0
+          ref: master
+      - name: set current version
+        run: bash ./version_updater.bash set_current_version
+      - name: checkout original branch ${{ github.sha }}
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.sha }}
+      - name: update versions
+        run: bash ./version_updater.bash update 0
+        env:
+          CURRENT_REF_NAME: ${{ github.ref_name }}
+      - name: Add & Commit updated files
+        uses: EndBug/add-and-commit@v9.1.3
+        with:
+          add: "['package-lock.json', 'package.json', 'static/manifest.json']"
+          message: 'version update'
