@@ -44,8 +44,10 @@ function update(){
   m_middle_digits=`expr match "$manifest_version" '.*\.\([0-9]*\)\.'`
   m_last_digits=`expr match "$manifest_version" '.*\.\([0-9]*\)'`
 
-  if [[ ! "$pj_first_digits.$pj_middle_digits.$pj_last_digits" -eq $CURRENT_VERSION ]]; then
-    echo "Error: branch $CURRENT_REF_NAME version is not equal to master. Master version = $CURRENT_VERSION --- $CURRENT_REF_NAME version = $package_json_version . Pull master to update." 
+  package_json_version=$pj_first_digits.$pj_middle_digits.$pj_last_digits
+
+  if [[ ! $CURRENT_VERSION -eq $package_json_version ]]; then
+    echo "Error: branch $CURRENT_REF_NAME version is not equal to master. Master version = $CURRENT_VERSION --- $CURRENT_REF_NAME version = $package_json_version . Pull master to update. " 
     exit 1
   fi
 
