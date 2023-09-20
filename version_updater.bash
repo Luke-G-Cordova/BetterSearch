@@ -41,6 +41,6 @@ fi
 # update manifest json
 jq ".version |= \"$new_version_string\"" ./static/manifest.json > ./static/manifest_tmp.json && mv ./static/manifest_tmp.json ./static/manifest.json
 
-git add package-lock.json package.json static/manifest.json
-git commit -m "version update to $new_version_string"
-git push
+# git add package-lock.json package.json static/manifest.json
+# git commit -m "version update to $new_version_string"
+# git push
