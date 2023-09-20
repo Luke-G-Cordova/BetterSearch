@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-set_current_version(){
+function set_current_version(){
   # get current version string and its length
   package_json_version=$( jq .version package.json )
   package_json_version_length=${#package_json_version}
