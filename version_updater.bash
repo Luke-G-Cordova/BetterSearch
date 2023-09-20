@@ -18,7 +18,7 @@ function set_current_version(){
   m_last_digits=`expr match "$manifest_version" '.*\.\([0-9]*\)'`
 
   if [[ $pj_first_digits -eq $m_first_digits ]] && [[ $pj_middle_digits -eq $m_middle_digits ]] && [[ $pj_last_digits -eq $m_last_digits ]]; then
-    export CURRENT_VERSION=$pj_first_digits.$pj_middle_digits.$pj_last_digits
+    echo "$pj_first_digits.$pj_middle_digits.$pj_last_digits"
   else
     echo "Error: package.json and static/manifest.json have mismatched versions"
     exit 1
@@ -32,7 +32,7 @@ function update(){
   # get current version string and its length
   package_json_version=$( jq .version package.json )
   if [[ ! $package_json_version -eq $CURRENT_VERSION ]]; then
-    echo "Error: branch $CURRENT_REF_NAME version is not equal to master. Pull master to update." 
+    echo "Error: branch $CURRENT_REF_NAME version is not equal to master. Master version = $CURRENT_VERSION --- $CURRENT_REF_NAME version = $package_json_version . Pull master to update." 
     exit 1
   fi
   package_json_version_length=${#package_json_version}

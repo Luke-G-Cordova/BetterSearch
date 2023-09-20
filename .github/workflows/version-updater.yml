@@ -2,8 +2,6 @@ name: version-updater
 run-name: ${{ github.actor }} updating version
 on:
   workflow_dispatch:
-  pull_request:
-    types: [opened, edited]
 jobs:
   update-version:
     runs-on: ubuntu-latest
@@ -13,7 +11,7 @@ jobs:
         with:
           ref: master
       - name: set current version
-        run: bash ./version_updater.bash set_current_version
+        run: echo "CURRENT_VERSION=$(bash ./version_updater.bash set_current_version)" >> $GITHUB_ENV
       - name: checkout original branch ${{ github.sha }}
         uses: actions/checkout@v3
         with:
