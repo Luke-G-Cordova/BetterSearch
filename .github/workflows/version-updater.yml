@@ -2,9 +2,19 @@ name: version-updater
 run-name: ${{ github.actor }} updating version
 on:
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: run without updating version for testing purposes
+        required: true
+        default: false
+        type: boolean
+
 jobs:
   update-version:
     runs-on: ubuntu-latest
+    env:
+      OVERRIDE_VERSION_CHECKS: ${{ inputs.override_version_checks }}
+      DRY_RUN: ${{ inputs.dry_run }}
     steps:
       - name: checkout master step
         uses: actions/checkout@v3
@@ -15,7 +25,7 @@ jobs:
       - name: checkout original branch ${{ github.sha }}
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.sha }}
+          ref: ${{ github.ref_name }}
       - name: update versions
         run: bash ./version_updater.bash update 0
         env:
