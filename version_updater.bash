@@ -18,7 +18,7 @@ function set_current_version(){
   m_last_digits=`expr match "$manifest_version" '.*\.\([0-9]*\)'`
 
   if [[ $pj_first_digits -eq $m_first_digits ]] && [[ $pj_middle_digits -eq $m_middle_digits ]] && [[ $pj_last_digits -eq $m_last_digits ]]; then
-    export CURRENT_VERSION = "$pj_first_digits.$pj_middle_digits.$pj_last_digits"
+    export CURRENT_VERSION="$pj_first_digits.$pj_middle_digits.$pj_last_digits"
   else
     echo "Error: package.json and static/manifest.json have mismatched versions"
     exit 1
