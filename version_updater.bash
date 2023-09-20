@@ -46,7 +46,7 @@ function update(){
 
   package_json_version=$pj_first_digits.$pj_middle_digits.$pj_last_digits
 
-  if [[ ! $CURRENT_VERSION -eq $package_json_version ]]; then
+  if [[ ! $CURRENT_VERSION == $package_json_version ]]; then
     echo "Error: branch $CURRENT_REF_NAME version is not equal to master. Master version = $CURRENT_VERSION --- $CURRENT_REF_NAME version = $package_json_version . Pull master to update. " 
     exit 1
   fi
