@@ -3,6 +3,7 @@ import { createRoot, Root } from 'react-dom/client';
 import { clearHighlight } from '../highlight/Highlighter';
 import { Globals } from '../Globals';
 import PopupCard from './components/PopupCard';
+import { updateTextModel } from '../highlight/PDFHighlighter';
 
 let container: HTMLElement;
 let root: Root | null;
@@ -24,6 +25,8 @@ export const togglePopup = async () => {
         detectBorder={20}
       />,
     );
+    document.body.append(Globals.pdfTextModel);
+    updateTextModel(Globals.pdfTextModel, location.href);
   } else {
     root.unmount();
     container.remove();
