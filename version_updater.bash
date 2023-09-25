@@ -56,25 +56,22 @@ function update(){
     exit 1
   fi
 
-  if [[ ! $DRY_RUN ]]; then
-    # 0 for patch update, 1 for minor update, 2 for major update
-    if [[ $update_level == 0 ]]; then
-      new_version_string="$pj_first_digits.$pj_middle_digits.$(($pj_last_digits+1))"
-      npm version patch --no-git-tag-version
-    elif [[ $update_level == 1 ]]; then
-      new_version_string="$pj_first_digits.$(($pj_middle_digits+1)).0"
-      npm version minor --no-git-tag-version
-    elif [[ $update_level == 2 ]]; then
-      new_version_string="$(($pj_first_digits+1)).0.0"
-      npm version major --no-git-tag-version
-    else
-      echo "Error: argument should be one of 0 for patch update, 1 for minor update, 2 for major update"
-      exit 1;
-    fi
-
-    # update manifest json
-    jq ".version |= \"$new_version_string\"" ./static/manifest.json > ./static/manifest_tmp.json && mv ./static/manifest_tmp.json ./static/manifest.json
+  new_version_string="0.0.0"
+  if [[ $update_level == "patch" ]]; then
+    new_version_string="$pj_first_digits.$pj_middle_digits.$(($pj_last_digits+1))"
+  elif [[ $update_level == "minor" ]]; then
+    new_version_string="$pj_first_digits.$(($pj_middle_digits+1)).0"
+  elif [[ $update_level == "major" ]]; then
+    new_version_string="$(($pj_first_digits+1)).0.0"
+  else
+    new_version_string="$pj_first_digits.$pj_middle_digits.$(($pj_last_digits+1))"
   fi
+
+  npm version $update_level --no-git-tag-version
+
+  # update manifest json
+  jq ".version |= \"$new_version_string\"" ./static/manifest.json > ./static/manifest_tmp.json && mv ./static/manifest_tmp.json ./static/manifest.json
+  echo $new_version_string
 }
 
 $1 $2
