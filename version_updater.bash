@@ -67,12 +67,12 @@ function update(){
     new_version_string="$pj_first_digits.$pj_middle_digits.$(($pj_last_digits+1))"
   fi
 
-  # if [[ ! $DRY_RUN ]]; then
+  if [[ ! $DRY_RUN ]]; then
     npm version $update_level --no-git-tag-version
 
     # update manifest json
     jq ".version |= \"$new_version_string\"" ./static/manifest.json > ./static/manifest_tmp.json && mv ./static/manifest_tmp.json ./static/manifest.json
-  # fi
+  fi
   echo "$new_version_string"
 }
 
