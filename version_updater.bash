@@ -73,7 +73,7 @@ function update(){
     # update manifest json
     jq ".version |= \"$new_version_string\"" ./static/manifest.json > ./static/manifest_tmp.json && mv ./static/manifest_tmp.json ./static/manifest.json
   fi
-  return $new_version_string
+  echo "$new_version_string"
 }
 
 $1 $2
