@@ -41,4 +41,4 @@ jobs:
         uses: EndBug/add-and-commit@v9.1.3
         with:
           add: "['package-lock.json', 'package.json', 'static/manifest.json']"
-          message: $NEW_VERSION
+          message: 'version update to $NEW_VERSION'
