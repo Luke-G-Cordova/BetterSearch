@@ -21,13 +21,13 @@ jobs:
         with:
           ref: master
       - name: set current version
-        run: echo "CURRENT_VERSION=$(bash ./version_updater.bash set_current_version)" >> $GITHUB_ENV
+        run: echo "CURRENT_VERSION=$(bash ./version_updater.bash set_current_version)" >> "$GITHUB_ENV"
       - name: checkout original branch ${{ github.ref_name }}
         uses: actions/checkout@v3
         with:
           ref: ${{ github.ref_name }}
       - name: update versions
-        run: bash ./version_updater.bash update ${{ inputs.update_level }}
+        run: echo "NEW_VERSION=$(bash ./version_updater.bash update ${{ inputs.update_level }})" >> "$GITHUB_ENV"
         env:
           CURRENT_REF_NAME: ${{ github.ref_name }}
       - name: Add & Commit updated files
