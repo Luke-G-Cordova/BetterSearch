@@ -3,11 +3,6 @@ run-name: ${{ github.actor }} updating version
 on:
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: run without updating version for testing purposes
-        required: true
-        default: false
-        type: boolean
       update_level:
         description: the version to update to
         required: true
@@ -20,8 +15,6 @@ on:
 jobs:
   update-version:
     runs-on: ubuntu-latest
-    env:
-      DRY_RUN: ${{ inputs.dry_run }}
     steps:
       - name: checkout master step
         uses: actions/checkout@v3
@@ -37,9 +30,8 @@ jobs:
         run: echo "NEW_VERSION=$(bash ./version_updater.bash update ${{ inputs.update_level }})" >> $GITHUB_ENV
         env:
           CURRENT_REF_NAME: ${{ github.ref_name }}
-          DRY_RUN: ${{ inputs.dry_run }}
       - name: Add & Commit updated files
         uses: EndBug/add-and-commit@v9.1.3
         with:
           add: "['package-lock.json', 'package.json', 'static/manifest.json']"
-          message: 'version update to $NEW_VERSION'
+          message: 'version update to ${{ env.NEW_VERSION }}'
