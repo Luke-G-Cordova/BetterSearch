@@ -1,17 +1,26 @@
 {
   "name": "BetterSearch",
   "description": "Functionality for searching through html",
-  "version": "0.0.32",
+  "version": "0.0.33",
   "manifest_version": 3,
-  "permissions": ["storage"],
+  "permissions": [
+    "storage"
+  ],
   "background": {
     "service_worker": "serviceWorker.js"
   },
   "content_scripts": [
     {
-      "matches": ["*://*/*"],
-      "js": ["./webcomponents_bundle.js", "contentScript.js"],
-      "css": ["./contentScript.css"]
+      "matches": [
+        "*://*/*"
+      ],
+      "js": [
+        "./webcomponents_bundle.js",
+        "contentScript.js"
+      ],
+      "css": [
+        "./contentScript.css"
+      ]
     }
   ],
   "action": {
