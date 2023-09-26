@@ -3,7 +3,7 @@ import { createRoot, Root } from 'react-dom/client';
 import { clearHighlight } from '../highlight/Highlighter';
 import { Globals } from '../Globals';
 import PopupCard from './components/PopupCard';
-import { updateTextModel } from '../highlight/PDFHighlighter';
+import { renderPDF, updateTextModel } from '../highlight/PDFHighlighter';
 
 let container: HTMLElement;
 let root: Root | null;
@@ -26,7 +26,14 @@ export const togglePopup = async () => {
       />,
     );
     document.body.append(Globals.pdfTextModel);
-    updateTextModel(Globals.pdfTextModel, location.href);
+
+    const canvas = document.createElement('canvas');
+    canvas.style.margin = 'auto';
+    canvas.className = 'renderArea';
+    const textLayer = document.createElement('div');
+    textLayer.className = 'textLayer';
+    document.body.append(canvas, textLayer);
+    renderPDF(canvas, textLayer);
   } else {
     root.unmount();
     container.remove();
