@@ -8,6 +8,7 @@ export const Globals: GlobalObject = {
   INPUT_AMT: 0,
   popup: null,
   popupDragger: null,
+  pdfTextModel: document.createElement('div'),
 
   /**
    * gets the index of key in Globals.ELEM_KEYS
